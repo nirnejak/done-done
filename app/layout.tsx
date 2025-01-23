@@ -2,11 +2,12 @@ import * as React from "react"
 
 import type { Viewport } from "next"
 import { ViewTransitions } from "next-view-transitions"
-
 import localFont from "next/font/local"
 
 import classNames from "@/utils/classNames"
 import { renderSchemaTags } from "@/utils/schema"
+
+import ThemeToggle from "@/components/ThemeToggle"
 
 import "../styles/main.css"
 
@@ -47,6 +48,7 @@ const RootLayout: React.FC<Props> = ({ children }) => {
           )}
         >
           {children}
+          <ThemeToggle />
         </body>
       </html>
     </ViewTransitions>
