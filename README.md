@@ -2,7 +2,7 @@
   Done Done
 </h1>
 
-A sleek and simple todo list app
+<p align="center">A sleek and simple todo list app</p>
 
 ---
 
