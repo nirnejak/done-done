@@ -4,9 +4,9 @@
     "display": "standalone",
     "scope": "/",
     "start_url": "/",
-    "name": "Next.js TypeScript Starter",
-    "short_name": "Next.js TypeScript Starter",
-    "description": "Next.js TypeScript Starter with basic configuration",
+    "name": "Done Done",
+    "short_name": "Done Done",
+    "description": "A sleek and simple todo list app",
     "icons": [
         {
             "src": "/path-to-icons/icon-192x192.png",

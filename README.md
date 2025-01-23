@@ -1,6 +1,8 @@
 <h1 align="center">
-  Next.js TypeScript Starter
+  Done Done
 </h1>
+
+A sleek and simple todo list app
 
 ---
 
