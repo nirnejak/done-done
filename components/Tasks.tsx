@@ -2,19 +2,26 @@
 import * as React from "react"
 import { redirect } from "next/navigation"
 
-import { motion, Reorder } from "motion/react"
+import { AnimatePresence, motion, Reorder } from "motion/react"
 import { Sort } from "akar-icons"
 
 import { useAuth } from "@/context/AuthContext"
-import { useTasks } from "@/context/TasksContext"
+import { useTasks, type TASK } from "@/context/TasksContext"
+
+import useModal from "@/hooks/useModal"
 
 import TaskRow from "@/components/TaskRow"
 import AddTask from "@/components/AddTask"
+import EditModal from "@/components/EditModal"
 
 const Tasks: React.FC = () => {
   const { user } = useAuth()
   const { tasks, toggleTask, sortTasksAlphabetically, reorderTasks } =
     useTasks()
+  const [isEditing, setIsEditing] = useModal()
+  const [selectedTask, setSelectedTask] = React.useState<TASK | undefined>(
+    undefined
+  )
 
   React.useEffect(() => {
     if (!user.isAuthenticated) {
@@ -22,7 +29,10 @@ const Tasks: React.FC = () => {
     }
   }, [user.isAuthenticated])
 
-  const openEditTaskModal = (id: string): void => {}
+  const openEditTaskModal = (id: string): void => {
+    setIsEditing(true)
+    setSelectedTask(tasks.find((task) => task.id === id))
+  }
 
   const deleteTask = (id: string): void => {}
 
@@ -72,6 +82,17 @@ const Tasks: React.FC = () => {
           </div>
         </motion.div>
       </motion.div>
+      <AnimatePresence>
+        {isEditing && selectedTask !== undefined && (
+          <EditModal
+            task={selectedTask}
+            closeModal={() => {
+              setSelectedTask(undefined)
+              setIsEditing(false)
+            }}
+          />
+        )}
+      </AnimatePresence>
     </section>
   )
 }
