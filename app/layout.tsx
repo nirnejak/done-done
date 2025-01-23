@@ -6,7 +6,7 @@ import localFont from "next/font/local"
 
 import classNames from "@/utils/classNames"
 import { renderSchemaTags } from "@/utils/schema"
-
+import AuthProvider from "@/context/AuthContext"
 import ThemeToggle from "@/components/ThemeToggle"
 
 import "../styles/main.css"
@@ -47,7 +47,7 @@ const RootLayout: React.FC<Props> = ({ children }) => {
             "overflow-x-hidden bg-neutral-50 dark:bg-neutral-900 font-sans"
           )}
         >
-          {children}
+          <AuthProvider>{children}</AuthProvider>
           <ThemeToggle />
         </body>
       </html>

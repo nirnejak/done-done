@@ -1,11 +1,13 @@
 "use client"
 import * as React from "react"
+import { redirect } from "next/navigation"
 
 import { motion, AnimatePresence } from "motion/react"
 
 import { BASE_TRANSITION } from "@/utils/animation"
 import classNames from "@/utils/classNames"
 import useDynamicHeight from "@/hooks/useDynamicHeight"
+import { useAuth } from "@/context/AuthContext"
 
 const initialFormState = {
   name: "",
@@ -14,12 +16,18 @@ const initialFormState = {
 }
 
 const AuthForm: React.FC = () => {
+  const { user, registerUser, loginUser } = useAuth()
+
   const { ref, height } = useDynamicHeight()
 
-  const [authState, setAuthState] = React.useState<"login" | "register">(
-    "register"
-  )
+  const [authState, setAuthState] = React.useState("register")
   const [formState, setFormState] = React.useState(initialFormState)
+
+  React.useEffect(() => {
+    if (user.isAuthenticated) {
+      redirect("/tasks")
+    }
+  }, [user.isAuthenticated])
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setFormState((prevState) => ({
@@ -31,10 +39,12 @@ const AuthForm: React.FC = () => {
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
 
+    const { name, email, password } = formState
     if (authState === "register") {
-      // TODO: register user
+      registerUser(name, email, password)
     } else {
       // TODO: login user
+      loginUser(email, password)
     }
 
     setFormState(initialFormState)
