@@ -35,21 +35,23 @@ const TaskRow: React.FC<Props> = ({
   return (
     <Reorder.Item value={task} dragListener={false} dragControls={dragControls}>
       <div
-        role="button"
-        tabIndex={0}
-        onKeyDown={(e) => {
-          e.key === "Enter" && toggleTask(task.id)
-        }}
-        onClick={(e) => {
-          toggleTask(task.id)
-        }}
         className={classNames(
           "group -mx-2 flex items-center rounded-lg p-1 outline-none transition-colors",
           "text-neutral-700 hover:text-neutral-900 focus:text-neutral-900 hover:bg-neutral-200/50 focus:bg-neutral-200/50",
           "dark:text-neutral-400 dark:hover:text-neutral-200 dark:focus:text-neutral-200 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
         )}
       >
-        <div className="my-0 flex items-center gap-1 truncate p-1 text-sm">
+        <div
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => {
+            e.key === "Enter" && toggleTask(task.id)
+          }}
+          onClick={(e) => {
+            toggleTask(task.id)
+          }}
+          className="my-0 flex items-center gap-1 truncate p-1 text-sm"
+        >
           <input
             tabIndex={-1}
             type="checkbox"
