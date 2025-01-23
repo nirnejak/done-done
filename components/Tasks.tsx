@@ -4,6 +4,8 @@ import { redirect } from "next/navigation"
 
 import { useAuth } from "@/context/AuthContext"
 
+import AddTask from "@/components/AddTask"
+
 const Tasks: React.FC = () => {
   const { user } = useAuth()
 
@@ -18,6 +20,7 @@ const Tasks: React.FC = () => {
       <h1 className="mb-3 font-semibold text-neutral-700 dark:text-neutral-200">
         Hi {user.name} ;)
       </h1>
+      <AddTask />
     </section>
   )
 }
