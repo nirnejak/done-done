@@ -50,12 +50,20 @@ const EditModal: React.FC<Props> = ({ task, closeModal }) => {
           ref={ref}
           required
         />
-        <button
-          type="submit"
-          className="rounded-lg bg-neutral-800 px-5 py-2 text-sm text-neutral-50 transition-all hover:bg-neutral-900 focus:bg-neutral-900 focus:outline-none active:scale-95 dark:bg-neutral-300 dark:text-neutral-900 dark:hover:bg-neutral-200 dark:focus:bg-neutral-200"
-        >
-          Update Task
-        </button>
+        <div className="flex gap-2">
+          <button
+            onClick={closeModal}
+            className="flex-1 rounded-lg bg-neutral-300 px-5 py-2 text-sm text-neutral-800 transition-all hover:bg-neutral-400 focus:bg-neutral-400 focus:outline-none active:scale-95 dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-600 dark:focus:bg-neutral-600"
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            className="flex-1 rounded-lg bg-neutral-800 px-5 py-2 text-sm text-neutral-50 transition-all hover:bg-neutral-900 focus:bg-neutral-900 focus:outline-none active:scale-95 dark:bg-neutral-300 dark:text-neutral-900 dark:hover:bg-neutral-200 dark:focus:bg-neutral-200"
+          >
+            Update Task
+          </button>
+        </div>
       </form>
     </Modal>
   )
