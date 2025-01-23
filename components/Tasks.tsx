@@ -13,12 +13,14 @@ import useModal from "@/hooks/useModal"
 import TaskRow from "@/components/TaskRow"
 import AddTask from "@/components/AddTask"
 import EditModal from "@/components/EditModal"
+import DeleteModal from "@/components/DeleteModal"
 
 const Tasks: React.FC = () => {
   const { user } = useAuth()
   const { tasks, toggleTask, sortTasksAlphabetically, reorderTasks } =
     useTasks()
   const [isEditing, setIsEditing] = useModal()
+  const [isDeleting, setIsDeleting] = useModal()
   const [selectedTask, setSelectedTask] = React.useState<TASK | undefined>(
     undefined
   )
@@ -34,7 +36,10 @@ const Tasks: React.FC = () => {
     setSelectedTask(tasks.find((task) => task.id === id))
   }
 
-  const deleteTask = (id: string): void => {}
+  const deleteTask = (id: string): void => {
+    setIsDeleting(true)
+    setSelectedTask(tasks.find((task) => task.id === id))
+  }
 
   return (
     <section className="mx-auto mt-20 w-[500px] md:mt-40">
@@ -89,6 +94,17 @@ const Tasks: React.FC = () => {
             closeModal={() => {
               setSelectedTask(undefined)
               setIsEditing(false)
+            }}
+          />
+        )}
+      </AnimatePresence>
+      <AnimatePresence>
+        {isDeleting && selectedTask !== undefined && (
+          <DeleteModal
+            taskId={selectedTask.id}
+            closeModal={() => {
+              setSelectedTask(undefined)
+              setIsDeleting(false)
             }}
           />
         )}
