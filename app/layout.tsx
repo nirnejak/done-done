@@ -3,7 +3,6 @@ import * as React from "react"
 import type { Viewport } from "next"
 import { ViewTransitions } from "next-view-transitions"
 
-import { Inter } from "next/font/google"
 import localFont from "next/font/local"
 
 import classNames from "@/utils/classNames"
@@ -11,18 +10,18 @@ import { renderSchemaTags } from "@/utils/schema"
 
 import "../styles/main.css"
 
-const sansFont = Inter({
+const sansFont = localFont({
   variable: "--sans-font",
-  subsets: ["latin"],
-})
-
-const monoFont = localFont({
-  variable: "--mono-font",
   src: [
     {
-      path: "../fonts/JetBrainsMono-Regular.ttf",
-      weight: "regular",
+      path: "../fonts/GeneralSans-Variable.woff2",
+      weight: "300 800",
       style: "normal",
+    },
+    {
+      path: "../fonts/GeneralSans-VariableItalic.woff2",
+      weight: "300 800",
+      style: "italic",
     },
   ],
 })
@@ -44,7 +43,6 @@ const RootLayout: React.FC<Props> = ({ children }) => {
         <body
           className={classNames(
             sansFont.variable,
-            monoFont.variable,
             "overflow-x-hidden bg-zinc-50 dark:bg-zinc-900 font-sans"
           )}
         >
