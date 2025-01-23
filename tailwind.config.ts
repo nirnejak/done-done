@@ -27,7 +27,6 @@ const config: Config = {
   variants: {
     extend: {},
   },
-  plugins: [require("@tailwindcss/typography")],
 }
 
 export default config
