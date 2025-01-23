@@ -3,12 +3,12 @@
 @tailwind utilities;
 
 ::-moz-selection {
-  @apply bg-zinc-600 text-white;
+  @apply bg-neutral-600 text-white;
   -webkit-text-fill-color: white;
 }
 
 ::selection {
-  @apply bg-zinc-600 text-white;
+  @apply bg-neutral-600 text-white;
   -webkit-text-fill-color: white;
 }
 
