@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+::-moz-selection {
+  @apply bg-zinc-600 text-white;
+  -webkit-text-fill-color: white;
+}
+
+::selection {
+  @apply bg-zinc-600 text-white;
+  -webkit-text-fill-color: white;
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+}
