@@ -15,11 +15,11 @@ const NotFound: React.FC = () => {
     <main className="container">
       <section className="grid min-h-screen place-content-center">
         <div className="text-center">
-          <h1 className="mb-3 text-5xl font-bold tracking-tighter text-zinc-800 dark:text-zinc-300">
+          <h1 className="mb-3 text-9xl font-semibold tracking-tighter text-neutral-800 dark:text-neutral-300">
             404
           </h1>
-          <p className="text-base text-zinc-800 dark:text-zinc-300">
-            The page you&apos;re looking for cannot be found. Go{" "}
+          <p className="text-base text-neutral-800 dark:text-neutral-300">
+            Page not found, go{" "}
             <Link
               href="/"
               className="font-semibold hover:underline focus:underline"
