@@ -43,7 +43,7 @@ const RootLayout: React.FC<Props> = ({ children }) => {
         <body
           className={classNames(
             sansFont.variable,
-            "overflow-x-hidden bg-zinc-50 dark:bg-zinc-900 font-sans"
+            "overflow-x-hidden bg-neutral-50 dark:bg-neutral-900 font-sans"
           )}
         >
           {children}
