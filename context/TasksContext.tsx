@@ -145,3 +145,10 @@ const TasksProvider: React.FC<Props> = ({ children }) => {
 }
 
 export default TasksProvider
+
+export const useTasks = (): TASKS_CONTEXT => {
+  const context = React.useContext(TasksContext)
+  if (context === null)
+    throw new Error("useTasks must be used within a TasksProvider")
+  return context
+}
