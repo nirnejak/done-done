@@ -1,4 +1,4 @@
-import { Config, defineConfig } from "drizzle-kit"
+import { defineConfig } from "drizzle-kit"
 
 import { drizzle } from "drizzle-orm/mysql2"
 import mysql from "mysql2/promise"
