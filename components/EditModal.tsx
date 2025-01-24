@@ -17,6 +17,7 @@ const EditModal: React.FC<Props> = ({ task, closeModal }) => {
   const { updateTask } = useTasks()
 
   const [title, setTitle] = React.useState(task.title)
+  const [description, setDescription] = React.useState("")
 
   React.useEffect(() => {
     ref.current?.focus()
@@ -26,7 +27,7 @@ const EditModal: React.FC<Props> = ({ task, closeModal }) => {
     e.preventDefault()
     if (title.length === 0) return
 
-    updateTask(task.id, title)
+    updateTask(task.id, title, description)
 
     setTitle("")
     closeModal()
@@ -37,7 +38,7 @@ const EditModal: React.FC<Props> = ({ task, closeModal }) => {
       <form onSubmit={handleFormSubmit} className="flex flex-col gap-2">
         <input
           type="text"
-          placeholder="Task"
+          placeholder="task title..."
           value={title}
           onChange={(e) => {
             setTitle(e.target.value)
@@ -50,7 +51,20 @@ const EditModal: React.FC<Props> = ({ task, closeModal }) => {
           ref={ref}
           required
         />
-        <div className="flex gap-2">
+        <textarea
+          placeholder="task description..."
+          value={description}
+          onChange={(e) => {
+            setDescription(e.target.value)
+          }}
+          className={classNames(
+            "rounded-lg border px-3 py-2 text-sm outline-hidden",
+            "bg-neutral-100 focus:border-neutral-300 text-neutral-600 placeholder:text-neutral-400",
+            "dark:bg-neutral-800 dark:focus:border-neutral-700 dark:text-neutral-300 placeholder:text-neutral-500 dark:border-neutral-700"
+          )}
+          required
+        />
+        <div className="flex gap-2 mt-2">
           <button
             onClick={closeModal}
             className="flex-1 rounded-lg bg-neutral-300 px-5 py-2 text-sm text-neutral-800 transition-all hover:bg-neutral-400 focus:bg-neutral-400 focus:outline-hidden active:scale-95 dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-600 dark:focus:bg-neutral-600"

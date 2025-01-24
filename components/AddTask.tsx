@@ -10,12 +10,13 @@ const AddTask: React.FC = () => {
   const { addTask } = useTasks()
 
   const [title, setTitle] = React.useState("")
+  const [description, setDescription] = React.useState("")
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
     if (title.length === 0) return
 
-    addTask(title)
+    addTask(title, description)
     setTitle("")
   }
 

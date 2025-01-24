@@ -13,8 +13,8 @@ export interface TASK {
 
 export interface TASKS_CONTEXT {
   tasks: TASK[]
-  addTask: (title: string) => void
-  updateTask: (id: string, title: string) => void
+  addTask: (title: string, description: string) => void
+  updateTask: (id: string, title: string, description: string) => void
   removeTask: (id: string) => void
   toggleTask: (id: string) => void
   sortTasksAlphabetically: () => void
@@ -44,19 +44,22 @@ const TasksProvider: React.FC<Props> = ({ children }) => {
     setTasks(orderedTasks)
   }
 
-  const addTask = (taskTitle: string): void => {
+  const addTask = (title: string, description: string): void => {
     setTasks((tasks) => {
       const updatedTasks = [
         {
           id: v4(),
-          title: taskTitle,
+          title: title,
+          description: "",
           isCompleted: false,
         },
         ...tasks,
       ]
 
       localStorage.setItem(LOCAL_STORAGE_FIELD, JSON.stringify(updatedTasks))
-      toast.success("Task added successfully")
+      toast.success("Task added successfully", {
+        description: title,
+      })
 
       return updatedTasks
     })
@@ -73,13 +76,14 @@ const TasksProvider: React.FC<Props> = ({ children }) => {
     })
   }
 
-  const updateTask = (id: string, title: string): void => {
+  const updateTask = (id: string, title: string, description: string): void => {
     setTasks((tasks) => {
       const updatedTasks = tasks.map((task) => {
         if (task.id === id) {
           return {
             ...task,
             title,
+            description,
           }
         } else {
           return task
