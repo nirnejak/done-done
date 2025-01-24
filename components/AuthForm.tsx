@@ -24,10 +24,10 @@ const AuthForm: React.FC = () => {
   const [formState, setFormState] = React.useState(initialFormState)
 
   React.useEffect(() => {
-    if (user.isAuthenticated) {
+    if (user.token.length > 0) {
       redirect("/tasks")
     }
-  }, [user.isAuthenticated])
+  }, [user.token])
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setFormState((prevState) => ({
@@ -43,7 +43,6 @@ const AuthForm: React.FC = () => {
     if (authState === "register") {
       registerUser(name, email, password)
     } else {
-      // TODO: login user
       loginUser(email, password)
     }
 

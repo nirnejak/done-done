@@ -3,17 +3,18 @@ import * as React from "react"
 
 import { SignOut } from "akar-icons"
 import { toast } from "sonner"
+import { redirect } from "next/navigation"
 
 const initialUser = {
   name: "",
   email: "",
-  isAuthenticated: false,
+  token: "",
 }
 
 export interface UserType {
   name: string
   email: string
-  isAuthenticated: boolean
+  token: string
 }
 
 export interface AUTH_CONTEXT {
@@ -41,39 +42,68 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
     }
   }, [])
 
-  const registerUser = (
+  const registerUser = async (
     name: string,
     email: string,
     password: string
-  ): void => {
-    setUser((user) => {
-      const newUser = {
-        ...user,
-        name,
-        email,
-        isAuthenticated: true,
+  ): Promise<void> => {
+    try {
+      const response = await fetch("/api/register", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ name, email, password }),
+      })
+      const data = await response.json()
+
+      if (data.token) {
+        setUser((user) => {
+          const newUser = {
+            ...user,
+            name,
+            email,
+            token: data.token,
+          }
+          localStorage.setItem(LOCAL_STORAGE_FIELD, JSON.stringify(newUser))
+          toast.success("Registered successfully, logging in")
+
+          return newUser
+        })
+        redirect("/tasks")
       }
-
-      localStorage.setItem(LOCAL_STORAGE_FIELD, JSON.stringify(newUser))
-      toast.success("Registered successfully, Logging in")
-
-      return newUser
-    })
+    } catch (error) {
+      console.error(error)
+      toast.error("Registration failed")
+    }
   }
 
-  const loginUser = (email: string, password: string): void => {
-    setUser((user) => {
-      const newUser = {
-        ...user,
-        name: "Jeet",
-        email,
-        isAuthenticated: true,
-      }
-      localStorage.setItem(LOCAL_STORAGE_FIELD, JSON.stringify(newUser))
-      toast.success("Logged in successfully")
+  const loginUser = async (email: string, password: string): Promise<void> => {
+    try {
+      const response = await fetch("/api/login", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      })
+      const data = await response.json()
 
-      return newUser
-    })
+      if (data.token) {
+        setUser((user) => {
+          const newUser = {
+            ...user,
+            name: data.name,
+            email,
+            token: data.token,
+          }
+          localStorage.setItem(LOCAL_STORAGE_FIELD, JSON.stringify(newUser))
+          toast.success("Logged in successfully")
+
+          return newUser
+        })
+        redirect("/tasks")
+      }
+    } catch (error) {
+      console.error(error)
+      toast.error("Registration failed")
+    }
   }
 
   const logoutUser = (): void => {

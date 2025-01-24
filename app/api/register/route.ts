@@ -2,7 +2,7 @@ import { NextResponse } from "next/server"
 
 import { db } from "@/drizzle.config"
 import { users } from "@/app/api/schema"
-import { encryptPassword } from "@/utils/auth"
+import { encryptPassword, generateToken } from "@/utils/auth"
 
 export async function POST(request: Request) {
   try {
@@ -26,10 +26,12 @@ export async function POST(request: Request) {
       .insert(users)
       .values({ name, email, password: hashedPassword })
       .$returningId()
+
+    const id = newUser[0].id
+    const token = generateToken(id)
     return NextResponse.json({
-      id: newUser[0].id,
-      name,
-      email,
+      token,
+      user: { id, name, email },
     })
   } catch (error) {
     console.log(error)

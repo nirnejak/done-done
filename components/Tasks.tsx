@@ -11,10 +11,10 @@ const Tasks: React.FC = () => {
   const { user } = useAuth()
 
   React.useEffect(() => {
-    if (!user.isAuthenticated) {
+    if (user.token.length === 0) {
       redirect("/")
     }
-  }, [user.isAuthenticated])
+  }, [user.token])
 
   return (
     <section className="mx-auto mt-32 w-full px-5 md:px-0 md:w-[500px] md:mt-40">
