@@ -14,6 +14,8 @@
 bun install
 ```
 
+> This project uses the new text based lockfile from Bun 1.2, using an older version of bun won't work.
+
 **Setup Pre-commit**
 
 ```bash
