@@ -12,7 +12,7 @@ export const comparePassword = async (
   return await bcryptUtils.compare(inputPassword, hashPassword)
 }
 
-export const generateToken = (id: string) => {
+export const generateToken = (id: number) => {
   const secretKey = process.env.SECRET_KEY || "default-secret-key"
   const expiresIn = Number(process.env.EXPIRE_TIME) || 3600
 
