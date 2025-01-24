@@ -67,7 +67,10 @@ const TaskRow: React.FC<Props> = ({
           ) : (
             <Circle size={18} />
           )}
-          <label htmlFor={"task-" + task.id} className="ml-1 font-medium">
+          <label
+            htmlFor={"task-" + task.id}
+            className="ml-1 font-medium cursor-pointer"
+          >
             {task.title}
           </label>
         </div>

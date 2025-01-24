@@ -30,6 +30,13 @@
     @apply bg-neutral-600 text-white;
     -webkit-text-fill-color: white;
   }
+
+  button {
+    @apply cursor-pointer;
+  }
+  [role="button"] {
+    @apply cursor-pointer;
+  }
 }
 
 @custom-variant dark (&:where(.dark, .dark *));
