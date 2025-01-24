@@ -4,15 +4,10 @@ import * as React from "react"
 import { toast } from "sonner"
 import { v4 } from "uuid"
 
-const initialTasks = [
-  { id: "0", title: "Learn Framer Motion", isCompleted: true },
-  { id: "1", title: "Build a project", isCompleted: false },
-  { id: "2", title: "Deploy to Vercel", isCompleted: false },
-]
-
 export interface TASK {
   id: string
   title: string
+  description: string
   isCompleted: boolean
 }
 
@@ -35,7 +30,7 @@ interface Props {
 const LOCAL_STORAGE_FIELD = "tasks"
 
 const TasksProvider: React.FC<Props> = ({ children }) => {
-  const [tasks, setTasks] = React.useState<TASK[]>(initialTasks)
+  const [tasks, setTasks] = React.useState<TASK[]>([])
 
   React.useEffect(() => {
     const localTasks = localStorage.getItem(LOCAL_STORAGE_FIELD)
@@ -45,6 +40,7 @@ const TasksProvider: React.FC<Props> = ({ children }) => {
   }, [])
 
   const reorderTasks = (orderedTasks: TASK[]): void => {
+    localStorage.setItem(LOCAL_STORAGE_FIELD, JSON.stringify(orderedTasks))
     setTasks(orderedTasks)
   }
 
@@ -120,8 +116,11 @@ const TasksProvider: React.FC<Props> = ({ children }) => {
         .slice()
         .sort((a, b) => a.title.localeCompare(b.title))
       if (JSON.stringify(currentTasks) === JSON.stringify(sortedTasks)) {
-        return sortedTasks.reverse()
+        const reversedTasks = sortedTasks.reverse()
+        localStorage.setItem(LOCAL_STORAGE_FIELD, JSON.stringify(reversedTasks))
+        return reversedTasks
       } else {
+        localStorage.setItem(LOCAL_STORAGE_FIELD, JSON.stringify(sortedTasks))
         return sortedTasks
       }
     })
