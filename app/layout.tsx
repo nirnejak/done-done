@@ -4,7 +4,6 @@ import type { Viewport } from "next"
 import { ViewTransitions } from "next-view-transitions"
 import localFont from "next/font/local"
 
-import classNames from "@/utils/classNames"
 import { renderSchemaTags } from "@/utils/schema"
 import AuthProvider from "@/context/AuthContext"
 import ThemeToggle from "@/components/ThemeToggle"
@@ -38,15 +37,10 @@ interface Props {
 const RootLayout: React.FC<Props> = ({ children }) => {
   return (
     <ViewTransitions>
-      <html lang="en">
+      <html lang="en" className={sansFont.variable}>
         <head>{renderSchemaTags()}</head>
 
-        <body
-          className={classNames(
-            sansFont.variable,
-            "overflow-x-hidden bg-neutral-50 dark:bg-neutral-900 font-sans"
-          )}
-        >
+        <body className="overflow-x-hidden bg-neutral-50 dark:bg-neutral-900 font-sans">
           <AuthProvider>{children}</AuthProvider>
           <ThemeToggle />
         </body>
