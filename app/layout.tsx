@@ -4,6 +4,8 @@ import type { Viewport } from "next"
 import { ViewTransitions } from "next-view-transitions"
 import localFont from "next/font/local"
 
+import { Toaster } from "sonner"
+
 import { renderSchemaTags } from "@/utils/schema"
 import AuthProvider from "@/context/AuthContext"
 import ThemeToggle from "@/components/ThemeToggle"
@@ -43,6 +45,7 @@ const RootLayout: React.FC<Props> = ({ children }) => {
         <body className="overflow-x-hidden bg-neutral-50 dark:bg-neutral-900 font-sans">
           <AuthProvider>{children}</AuthProvider>
           <ThemeToggle />
+          <Toaster position="bottom-right" closeButton />
         </body>
       </html>
     </ViewTransitions>
