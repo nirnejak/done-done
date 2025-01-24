@@ -2,7 +2,7 @@
 import * as React from "react"
 
 import { toast } from "sonner"
-import { v4 } from "uuid"
+import { nanoid } from "nanoid"
 
 export interface TASK {
   id: string
