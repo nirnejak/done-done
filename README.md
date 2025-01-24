@@ -6,6 +6,10 @@
 
 ---
 
+## Backend and Database Setup
+
+> For backend and database setup please refer to BACKEND.md
+
 ## Available Scripts
 
 **Install Dependencies**
