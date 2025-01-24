@@ -32,7 +32,7 @@ const AddTask: React.FC = () => {
         type="text"
         value={title}
         className={classNames(
-          "relative w-full rounded-2xl py-2.5 pl-8 pr-3 text-sm shadow-heavy focus:outline-none dark:shadow-md",
+          "relative w-full rounded-2xl py-2.5 pl-8 pr-3 text-sm shadow-heavy focus:outline-hidden dark:shadow-md",
           "bg-neutral-50 text-neutral-700 placeholder:text-neutral-500",
           "dark:bg-neutral-900 dark:text-neutral-300 dark:placeholder:text-neutral-400"
         )}
@@ -43,7 +43,7 @@ const AddTask: React.FC = () => {
       />
       <button
         className={classNames(
-          "absolute right-3.5 z-10 rounded-xl px-3 py-1.5 text-xs shadow-md outline-none transition-colors dark:shadow-md",
+          "absolute right-3.5 z-10 rounded-xl px-3 py-1.5 text-xs shadow-md outline-hidden transition-colors dark:shadow-md",
           "bg-neutral-600 text-neutral-100 hover:bg-neutral-700 focus:bg-neutral-700",
           "dark:bg-neutral-300 dark:text-neutral-900 dark:hover:bg-neutral-200 dark:focus:bg-neutral-200"
         )}

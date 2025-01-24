@@ -29,7 +29,7 @@ const Modal: React.FC<Props> = ({ title, children, closeModal }) => {
           e.stopPropagation()
           closeModal()
         }}
-        className="fixed left-0 top-0 z-40 h-screen w-screen bg-black/10 backdrop-blur-sm"
+        className="fixed left-0 top-0 z-40 h-screen w-screen bg-black/10 backdrop-blur-xs"
       />
       <motion.div
         initial={{

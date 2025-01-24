@@ -36,7 +36,7 @@ const TaskRow: React.FC<Props> = ({
     <Reorder.Item value={task} dragListener={false} dragControls={dragControls}>
       <div
         className={classNames(
-          "group -mx-2 flex items-center rounded-lg p-1 outline-none transition-colors",
+          "group -mx-2 flex items-center rounded-lg p-1 outline-hidden transition-colors",
           "text-neutral-700 hover:text-neutral-900 focus:text-neutral-900 hover:bg-neutral-200/50 focus:bg-neutral-200/50",
           "dark:text-neutral-400 dark:hover:text-neutral-200 dark:focus:text-neutral-200 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
         )}
@@ -74,7 +74,7 @@ const TaskRow: React.FC<Props> = ({
         <div className="ml-auto flex items-center gap-2">
           <div className="hidden group-hover:flex group-focus:flex">
             <button
-              className="rounded p-1 text-neutral-400 transition-colors hover:bg-neutral-200 hover:text-neutral-600 focus:bg-neutral-200 focus:text-neutral-600 dark:hover:bg-neutral-900 dark:focus:bg-neutral-900"
+              className="rounded-sm p-1 text-neutral-400 transition-colors hover:bg-neutral-200 hover:text-neutral-600 focus:bg-neutral-200 focus:text-neutral-600 dark:hover:bg-neutral-900 dark:focus:bg-neutral-900"
               onClick={(e) => {
                 e.stopPropagation()
                 editTask(task.id)
@@ -83,7 +83,7 @@ const TaskRow: React.FC<Props> = ({
               <Pencil size={17} />
             </button>
             <button
-              className="rounded p-1 text-red-400 transition-colors hover:bg-red-100 hover:text-red-600 focus:bg-red-100 focus:text-red-600 dark:hover:bg-red-900 dark:focus:bg-red-900"
+              className="rounded-sm p-1 text-red-400 transition-colors hover:bg-red-100 hover:text-red-600 focus:bg-red-100 focus:text-red-600 dark:hover:bg-red-900 dark:focus:bg-red-900"
               onClick={(e) => {
                 e.stopPropagation()
                 deleteTask(task.id)
