@@ -22,7 +22,7 @@ const AddTask: React.FC = () => {
   return (
     <form
       onSubmit={handleFormSubmit}
-      className="group relative mb-12 flex items-center rounded-3xl bg-neutral-200 p-2 shadow-heavy dark:bg-neutral-800 dark:shadow-md"
+      className="group relative mb-8 md:mb-12 flex items-center rounded-3xl bg-neutral-200 p-2 shadow-heavy dark:bg-neutral-800 dark:shadow-md"
     >
       <Plus
         size={15}

@@ -42,7 +42,7 @@ const Tasks: React.FC = () => {
   }
 
   return (
-    <section className="mx-auto mt-20 w-[500px] md:mt-40">
+    <section className="mx-auto mt-32 w-full px-5 md:px-0 md:w-[500px] md:mt-40">
       <h1 className="mb-3 font-semibold text-neutral-700 dark:text-neutral-200">
         Hi {user.name} ;)
       </h1>
