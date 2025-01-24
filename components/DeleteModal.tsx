@@ -11,7 +11,12 @@ interface Props {
 }
 
 const DeleteModal: React.FC<Props> = ({ taskId, closeModal }) => {
+  const ref = React.useRef<HTMLButtonElement>(null)
   const { removeTask } = useTasks()
+
+  React.useEffect(() => {
+    ref.current?.focus()
+  }, [])
 
   const deleteTask = (): void => {
     removeTask(taskId)
@@ -31,6 +36,7 @@ const DeleteModal: React.FC<Props> = ({ taskId, closeModal }) => {
           Cancel
         </button>
         <button
+          ref={ref}
           onClick={deleteTask}
           className="rounded-lg bg-red-800 px-5 py-2 text-sm text-neutral-50 transition-all hover:bg-red-900 focus:bg-red-900 focus:outline-hidden active:scale-95"
         >
