@@ -1,12 +1,12 @@
 "use client"
 import * as React from "react"
 import { redirect } from "next/navigation"
+import { SignOut } from "akar-icons"
 
 import { useAuth } from "@/context/AuthContext"
 
 import AddTask from "@/components/AddTask"
 import TaskList from "@/components/TaskList"
-import { SignOut } from "akar-icons"
 
 const Tasks: React.FC = () => {
   const { user, logoutUser } = useAuth()
