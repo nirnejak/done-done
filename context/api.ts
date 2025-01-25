@@ -54,6 +54,25 @@ export const updateTodo = async (
   }
 }
 
+export const toggleTodo = async (
+  token: string,
+  id: number,
+  isCompleted: boolean
+) => {
+  try {
+    const response = await fetch("/api/todo", {
+      method: "PUT",
+      headers: { Authorization: token },
+      body: JSON.stringify({ id, isCompleted }),
+    })
+    const data = await response.json()
+
+    return data
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 export const removeTodo = async (token: string, id: number) => {
   try {
     const response = await fetch("/api/todo", {

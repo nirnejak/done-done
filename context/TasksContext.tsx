@@ -4,7 +4,7 @@ import * as React from "react"
 import { toast } from "sonner"
 
 import { useAuth } from "./AuthContext"
-import { getTodos, removeTodo, updateTodo } from "./api/tasks"
+import { getTodos, removeTodo, updateTodo } from "./api"
 
 export interface TASK {
   id: number
@@ -122,21 +122,34 @@ const TasksProvider: React.FC<Props> = ({ children }) => {
     }
   }
 
-  const toggleTask = (id: number): void => {
-    setTasks((tasks) => {
-      const updatedTasks = tasks.map((task) => {
-        if (task.id === id) {
-          return {
-            ...task,
-            isCompleted: !task.isCompleted,
+  const toggleTask = async (id: number): Promise<void> => {
+    const taskArr = tasks.filter((task) => id === task.id)
+    if (taskArr.length > 0) {
+      const updatedTask = taskArr[0]
+      updatedTask.isCompleted = !updatedTask.isCompleted
+
+      setTasks((tasks) => {
+        const updatedTasks = tasks.map((task) => {
+          if (task.id === updatedTask.id) {
+            return updatedTask
+          } else {
+            return task
           }
-        } else {
-          return task
-        }
+        })
+
+        localStorage.setItem(LOCAL_STORAGE_FIELD, JSON.stringify(updatedTasks))
+        return updatedTasks
       })
-      localStorage.setItem(LOCAL_STORAGE_FIELD, JSON.stringify(updatedTasks))
-      return updatedTasks
-    })
+
+      await updateTodo(
+        user.token,
+        updatedTask.id,
+        updatedTask.title,
+        updatedTask.description,
+        updatedTask.dueDate,
+        updatedTask.isCompleted
+      )
+    }
   }
 
   const sortTasksAlphabetically = (): void => {

@@ -15,7 +15,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json(
       allTodos.map((todo) => ({
         ...todo,
-        due_date: todo.due_date?.toISOString().replace(/T.*/, ""),
+        dueDate: todo.dueDate?.toISOString().replace(/T.*/, ""),
       }))
     )
   } catch (error) {
@@ -79,17 +79,18 @@ export async function PUT(request: NextRequest) {
   const userId = await getUserIdFromRequestHeaderToken(request)
 
   try {
-    const { id, title, description, due_date } = await request.json()
+    const { id, title, description, dueDate, isCompleted } =
+      await request.json()
     if (!id) {
       return NextResponse.json({ error: "ID is required" }, { status: 400 })
     }
 
     await db
       .update(todos)
-      .set({ title, description, due_date })
+      .set({ title, description, dueDate, isCompleted })
       .where(and({ id }, { user_id: userId }))
 
-    return NextResponse.json({ id, title, description, due_date })
+    return NextResponse.json({ id, title, description, dueDate, isCompleted })
   } catch (error) {
     console.log(error)
     return NextResponse.json(
