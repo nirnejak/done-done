@@ -37,7 +37,7 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
 
   React.useEffect(() => {
     const localUser = localStorage.getItem(LOCAL_STORAGE_FIELD)
-    if (localUser !== null) {
+    if (localUser !== null && localUser !== "undefined") {
       setUser(JSON.parse(localUser) as UserType)
     }
   }, [])
@@ -53,22 +53,27 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ name, email, password }),
       })
-      const data = await response.json()
 
-      if (data.token) {
-        setUser((user) => {
-          const newUser = {
-            ...user,
-            name,
-            email,
-            token: data.token,
-          }
-          localStorage.setItem(LOCAL_STORAGE_FIELD, JSON.stringify(newUser))
-          toast.success("Registered successfully, logging in")
+      if (response.ok) {
+        const data = await response.json()
+        if (data.token) {
+          setUser((user) => {
+            const newUser = {
+              ...user,
+              name,
+              email,
+              token: data.token,
+            }
+            localStorage.setItem(LOCAL_STORAGE_FIELD, JSON.stringify(newUser))
+            toast.success("Registered successfully, logging in")
 
-          return newUser
-        })
-        redirect("/tasks")
+            return newUser
+          })
+          redirect("/tasks")
+        }
+      } else {
+        const data = await response.json()
+        toast.success(data.error)
       }
     } catch (error) {
       console.error(error)
@@ -83,22 +88,26 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ email, password }),
       })
-      const data = await response.json()
 
-      if (data.token) {
-        setUser((user) => {
-          const newUser = {
-            ...user,
-            name: data.user.name,
-            email,
-            token: data.token,
-          }
-          localStorage.setItem(LOCAL_STORAGE_FIELD, JSON.stringify(newUser))
-          toast.success("Logged in successfully")
+      if (response.ok) {
+        const data = await response.json()
+        if (data.token) {
+          setUser((user) => {
+            const newUser = {
+              name: data.user.name,
+              email,
+              token: data.token,
+            }
+            localStorage.setItem(LOCAL_STORAGE_FIELD, JSON.stringify(newUser))
+            toast.success("Logged in successfully")
 
-          return newUser
-        })
-        redirect("/tasks")
+            return newUser
+          })
+          redirect("/tasks")
+        }
+      } else {
+        const data = await response.json()
+        toast.success(data.error)
       }
     } catch (error) {
       console.error(error)
@@ -109,6 +118,7 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
   const logoutUser = (): void => {
     setUser(initialUser)
     localStorage.setItem(LOCAL_STORAGE_FIELD, JSON.stringify(initialUser))
+    localStorage.removeItem("tasks")
     toast("Logged out", {
       icon: <SignOut size={15} />,
     })
