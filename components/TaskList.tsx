@@ -75,7 +75,7 @@ const TaskList: React.FC<Props> = () => {
           </div>
         </motion.div>
       </motion.div>
-      <AnimatePresence>
+      <AnimatePresence mode="popLayout">
         {isEditing && selectedTask !== undefined && (
           <EditModal
             task={selectedTask}
@@ -86,7 +86,7 @@ const TaskList: React.FC<Props> = () => {
           />
         )}
       </AnimatePresence>
-      <AnimatePresence>
+      <AnimatePresence mode="popLayout">
         {isDeleting && selectedTask !== undefined && (
           <DeleteModal
             taskId={selectedTask.id}
