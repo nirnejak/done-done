@@ -63,6 +63,7 @@ const EditModal: React.FC<Props> = ({ task, closeModal }) => {
             "bg-neutral-100 focus:border-neutral-300 text-neutral-600 placeholder:text-neutral-400",
             "dark:bg-neutral-800 dark:focus:border-neutral-700 dark:text-neutral-300 placeholder:text-neutral-500 dark:border-neutral-700"
           )}
+          rows={3}
           required
         />
         <label
@@ -82,7 +83,7 @@ const EditModal: React.FC<Props> = ({ task, closeModal }) => {
             onChange={(e) => {
               setDueDate(e.target.value)
             }}
-            className="text-xs w-[96px] outline-hidden"
+            className="text-sm w-[100px] outline-hidden"
           />
         </label>
         <div className="flex gap-2 mt-2">
