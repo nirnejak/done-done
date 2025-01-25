@@ -32,6 +32,14 @@ bun run prepare
 bun run dev
 ```
 
+**Run tests**
+
+```bash
+bun run test
+```
+
+> be careful to not run bun test instead, which runs bun's own test suite
+
 **Lint all the files**
 
 ```bash
