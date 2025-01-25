@@ -17,7 +17,7 @@ const EditModal: React.FC<Props> = ({ task, closeModal }) => {
   const { updateTask } = useTasks()
 
   const [title, setTitle] = React.useState(task.title)
-  const [description, setDescription] = React.useState("")
+  const [description, setDescription] = React.useState(task.description)
 
   React.useEffect(() => {
     ref.current?.focus()
