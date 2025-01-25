@@ -12,10 +12,14 @@ export async function GET(request: NextRequest) {
 
   try {
     const allTodos = await db.select().from(todos).where({ user_id: userId })
+
     return NextResponse.json(
       allTodos.map((todo) => ({
-        ...todo,
+        id: todo.id,
+        title: todo.title,
+        description: todo.description,
         dueDate: todo.dueDate?.toISOString().replace(/T.*/, ""),
+        isCompleted: todo.isCompleted,
       }))
     )
   } catch (error) {
@@ -31,20 +35,21 @@ export async function POST(request: NextRequest) {
   const userId = await getUserIdFromRequestHeaderToken(request)
 
   try {
-    const { title, description, due_date } = await request.json()
+    const { title, description, dueDate } = await request.json()
     if (!title) {
       return NextResponse.json({ error: "Title is required" }, { status: 400 })
     }
 
     const newTodo = await db
       .insert(todos)
-      .values({ title, userId, description, due_date })
+      .values({ title, userId, description, dueDate })
       .$returningId()
     return NextResponse.json({
       id: newTodo[0].id,
       title,
       description,
-      due_date,
+      dueDate,
+      isCompleted: false,
     })
   } catch (error) {
     console.log(error)
