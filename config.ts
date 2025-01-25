@@ -1,5 +1,5 @@
 const config = {
-  baseUrl: "https://example.com",
+  baseUrl: "https://done-done-beta.vercel.app",
   appName: "DoneDone",
   appDescription: "A sleek and simple todo list app",
   creator: "Jitendra Nirnejak",
@@ -7,10 +7,13 @@ const config = {
   authorUrl: "https://nirnejak.com/",
   keywords: [
     "Todo List",
+    "TypeScript",
     "Next.js",
+    "Drizzle",
+    "MySQL",
+    "Vitest",
     "TailwindCSS",
     "Framer Motion",
-    "TypeScript",
     "Akar Icons",
     "ESLint",
     "Prettier",
