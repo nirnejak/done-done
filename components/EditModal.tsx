@@ -71,8 +71,8 @@ const EditModal: React.FC<Props> = ({ task, closeModal }) => {
           className={classNames(
             "flex justify-between",
             "rounded-lg border px-3 py-2 text-sm outline-hidden",
-            "bg-neutral-100 focus:border-neutral-300 text-neutral-600 placeholder:text-neutral-400",
-            "dark:bg-neutral-800 dark:focus:border-neutral-700 dark:text-neutral-300 placeholder:text-neutral-500 dark:border-neutral-700"
+            "bg-neutral-100 focus:border-neutral-300 text-neutral-600",
+            "dark:bg-neutral-800 dark:focus:border-neutral-700 dark:text-neutral-300 dark:border-neutral-700"
           )}
         >
           <span className="mr-1 font-medium">Due Date</span>
@@ -83,7 +83,7 @@ const EditModal: React.FC<Props> = ({ task, closeModal }) => {
             onChange={(e) => {
               setDueDate(e.target.value)
             }}
-            className="text-sm w-[100px] outline-hidden"
+            className="text-sm outline-hidden"
           />
         </label>
         <div className="flex gap-2 mt-2">
