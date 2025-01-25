@@ -1,14 +1,16 @@
 "use client"
 import * as React from "react"
 
-import { Plus } from "akar-icons"
+import { Plus, Calendar as CalendarIcon } from "akar-icons"
 import { AnimatePresence, motion } from "motion/react"
 
 import classNames from "@/utils/classNames"
-import useDynamicHeight from "@/hooks/useDynamicHeight"
-import { useTasks } from "@/context/TasksContext"
 import { BASE_TRANSITION } from "@/utils/animation"
+
+import useDynamicHeight from "@/hooks/useDynamicHeight"
 import useClickOutside from "@/hooks/useClickOutside"
+
+import { useTasks } from "@/context/TasksContext"
 
 const AddTask: React.FC = () => {
   const { addTask } = useTasks()
@@ -27,9 +29,9 @@ const AddTask: React.FC = () => {
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
-    if (title.length === 0) return
 
     addTask(title, description)
+
     setTitle("")
     setDescription("")
     setDueDate("")
@@ -57,6 +59,7 @@ const AddTask: React.FC = () => {
             onChange={(e) => {
               setTitle(e.target.value)
             }}
+            required
           />
           <AnimatePresence mode="popLayout" initial={false}>
             {isFocused && (
@@ -75,10 +78,32 @@ const AddTask: React.FC = () => {
                 onChange={(e) => {
                   setDescription(e.target.value)
                 }}
+                rows={3}
               />
             )}
           </AnimatePresence>
-          <div className="absolute bottom-3.5 right-3.5 z-5">
+          <div className="absolute bottom-3.5 right-3.5 z-5 flex items-center gap-1.5">
+            <AnimatePresence mode="popLayout" initial={false}>
+              {isFocused && (
+                <motion.div
+                  transition={BASE_TRANSITION}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="text-xs bg-neutral-200 pl-3 pr-2.5 py-1.5 rounded-xl dark:bg-neutral-800 dark:text-neutral-200"
+                >
+                  <span className="mr-1 font-medium">Due:</span>
+                  <input
+                    type="date"
+                    value={dueDate}
+                    onChange={(e) => {
+                      setDueDate(e.target.value)
+                    }}
+                    className="text-xs w-[96px] outline-hidden"
+                  />
+                </motion.div>
+              )}
+            </AnimatePresence>
             <button
               onClick={(e) => e.stopPropagation()}
               className={classNames(
