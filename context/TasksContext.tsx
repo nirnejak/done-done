@@ -38,6 +38,16 @@ interface Props {
 
 const LOCAL_STORAGE_FIELD = "tasks"
 
+const mergeUniqueTasks = (updatedLocalTasks: TASK[], data: TASK[]): TASK[] => {
+  const existingIds = new Set(updatedLocalTasks.map((task) => task.id))
+
+  // Filter tasks from `data` that are not in `updatedLocalTasks`
+  const newTasks = data.filter((task) => !existingIds.has(task.id))
+
+  // Merge the arrays while maintaining the order of `updatedLocalTasks`
+  return [...newTasks, ...updatedLocalTasks]
+}
+
 const TasksProvider: React.FC<Props> = ({ children }) => {
   const { user } = useAuth()
   const [tasks, setTasks] = React.useState<TASK[]>([])
@@ -46,7 +56,29 @@ const TasksProvider: React.FC<Props> = ({ children }) => {
     if (user.token) {
       const fetchTodos = async () => {
         const data = await getTodos(user.token)
-        setTasks(data)
+        const localTasks = localStorage.getItem(LOCAL_STORAGE_FIELD)
+
+        // Sync local while keeping the order same
+        if (localTasks !== null) {
+          const parsedLocalTasks = JSON.parse(localTasks) as TASK[]
+
+          // if item isn't present in remote, remove it from local
+          const validLocalTasks = parsedLocalTasks.filter((task) => {
+            return data.some((t: TASK) => t.id === task.id)
+          })
+          // update local items from remote
+          const updatedLocalTasks = validLocalTasks.map((task) => {
+            return data.find((t: TASK) => t.id === task.id)
+          })
+          // if there are new items, put them at the start
+          const mergedTasks = mergeUniqueTasks(updatedLocalTasks, data)
+
+          setTasks(mergedTasks)
+          localStorage.setItem(LOCAL_STORAGE_FIELD, JSON.stringify(mergedTasks))
+        } else {
+          setTasks(data)
+          localStorage.setItem(LOCAL_STORAGE_FIELD, JSON.stringify(data))
+        }
       }
       fetchTodos()
     }
