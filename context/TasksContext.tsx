@@ -4,7 +4,7 @@ import * as React from "react"
 import { toast } from "sonner"
 
 import { useAuth } from "./AuthContext"
-import { getTodos, removeTodo } from "./api/tasks"
+import { getTodos, removeTodo, updateTodo } from "./api/tasks"
 
 export interface TASK {
   id: number
@@ -90,25 +90,36 @@ const TasksProvider: React.FC<Props> = ({ children }) => {
     }
   }
 
-  const updateTask = (id: number, title: string, description: string): void => {
+  const updateTask = async (
+    id: number,
+    title: string,
+    description: string,
+    dueDate: string,
+    isCompleted: boolean
+  ): Promise<void> => {
     setTasks((tasks) => {
       const updatedTasks = tasks.map((task) => {
         if (task.id === id) {
-          return {
-            ...task,
-            title,
-            description,
-          }
+          return { ...task, title, description, dueDate, isCompleted }
         } else {
           return task
         }
       })
-
       localStorage.setItem(LOCAL_STORAGE_FIELD, JSON.stringify(updatedTasks))
-      toast.success("Task updated successfully")
-
       return updatedTasks
     })
+
+    const data = await updateTodo(
+      user.token,
+      id,
+      title,
+      description,
+      dueDate,
+      isCompleted
+    )
+    if (data.id) {
+      toast.success("Task updated successfully")
+    }
   }
 
   const toggleTask = (id: number): void => {
