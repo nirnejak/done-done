@@ -30,7 +30,7 @@ const AddTask: React.FC = () => {
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
 
-    addTask(title, description)
+    addTask(title, description, dueDate)
 
     setTitle("")
     setDescription("")

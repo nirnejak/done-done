@@ -18,6 +18,7 @@ const EditModal: React.FC<Props> = ({ task, closeModal }) => {
 
   const [title, setTitle] = React.useState(task.title)
   const [description, setDescription] = React.useState(task.description)
+  const [dueDate, setDueDate] = React.useState(task.dueDate)
 
   React.useEffect(() => {
     ref.current?.focus()
@@ -27,7 +28,7 @@ const EditModal: React.FC<Props> = ({ task, closeModal }) => {
     e.preventDefault()
     if (title.length === 0) return
 
-    updateTask(task.id, title, description)
+    updateTask(task.id, title, description, dueDate, task.isCompleted)
 
     setTitle("")
     closeModal()
@@ -64,6 +65,26 @@ const EditModal: React.FC<Props> = ({ task, closeModal }) => {
           )}
           required
         />
+        <label
+          htmlFor="due-date"
+          className={classNames(
+            "flex justify-between",
+            "rounded-lg border px-3 py-2 text-sm outline-hidden",
+            "bg-neutral-100 focus:border-neutral-300 text-neutral-600 placeholder:text-neutral-400",
+            "dark:bg-neutral-800 dark:focus:border-neutral-700 dark:text-neutral-300 placeholder:text-neutral-500 dark:border-neutral-700"
+          )}
+        >
+          <span className="mr-1 font-medium">Due Date</span>
+          <input
+            id="due-date"
+            type="date"
+            value={dueDate}
+            onChange={(e) => {
+              setDueDate(e.target.value)
+            }}
+            className="text-xs w-[96px] outline-hidden"
+          />
+        </label>
         <div className="flex gap-2 mt-2">
           <button
             type="button"

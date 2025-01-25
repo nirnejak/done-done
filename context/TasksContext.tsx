@@ -16,8 +16,14 @@ export interface TASK {
 
 export interface TASKS_CONTEXT {
   tasks: TASK[]
-  addTask: (title: string, description: string) => void
-  updateTask: (id: number, title: string, description: string) => void
+  addTask: (title: string, description: string, dueDate: string) => void
+  updateTask: (
+    id: number,
+    title: string,
+    description: string,
+    dueDate: string,
+    isCompleted: boolean
+  ) => void
   removeTask: (id: number) => void
   toggleTask: (id: number) => void
   sortTasksAlphabetically: () => void
