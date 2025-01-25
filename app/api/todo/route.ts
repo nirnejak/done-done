@@ -1,16 +1,32 @@
 import { NextRequest, NextResponse } from "next/server"
 
+import jwt from "jsonwebtoken"
 import { and } from "drizzle-orm"
 
 import { db } from "@/drizzle.config"
 
 import { todos } from "@/app/api/schema"
-import { getUserIdFromRequestHeaderToken } from "@/app/api/utils"
+
+const errorHandler = (error: any, defaultMessage: string) => {
+  if (
+    error instanceof jwt.JsonWebTokenError ||
+    error instanceof jwt.NotBeforeError ||
+    error instanceof jwt.TokenExpiredError
+  ) {
+    return NextResponse.json({ error: "Invalid Token" }, { status: 401 })
+  }
+
+  return NextResponse.json({ error: defaultMessage }, { status: 500 })
+}
 
 export async function GET(request: NextRequest) {
-  const userId = await getUserIdFromRequestHeaderToken(request)
+  const rawToken = request.headers.get("Authorization") || ""
+  const token = rawToken.replace("Bearer ", "")
 
   try {
+    const decoded = jwt.verify(token, process.env.SECRET_KEY!) as { id: number }
+    const userId = decoded.id
+
     const allTodos = await db.select().from(todos).where({ user_id: userId })
 
     return NextResponse.json(
@@ -24,17 +40,18 @@ export async function GET(request: NextRequest) {
     )
   } catch (error) {
     console.log(error)
-    return NextResponse.json(
-      { error: "Failed to fetch todos" },
-      { status: 500 }
-    )
+    return errorHandler(error, "Failed to get todos")
   }
 }
 
 export async function POST(request: NextRequest) {
-  const userId = await getUserIdFromRequestHeaderToken(request)
+  const rawToken = request.headers.get("Authorization") || ""
+  const token = rawToken.replace("Bearer ", "")
 
   try {
+    const decoded = jwt.verify(token, process.env.SECRET_KEY!) as { id: number }
+    const userId = decoded.id
+
     const { title, description, dueDate } = await request.json()
     if (!title) {
       return NextResponse.json({ error: "Title is required" }, { status: 400 })
@@ -53,17 +70,18 @@ export async function POST(request: NextRequest) {
     })
   } catch (error) {
     console.log(error)
-    return NextResponse.json(
-      { error: "Failed to create todo" },
-      { status: 500 }
-    )
+    return errorHandler(error, "Failed to create todo")
   }
 }
 
 export async function DELETE(request: NextRequest) {
-  const userId = await getUserIdFromRequestHeaderToken(request)
+  const rawToken = request.headers.get("Authorization") || ""
+  const token = rawToken.replace("Bearer ", "")
 
   try {
+    const decoded = jwt.verify(token, process.env.SECRET_KEY!) as { id: number }
+    const userId = decoded.id
+
     const { id } = await request.json()
     if (!id) {
       return NextResponse.json({ error: "ID is required" }, { status: 400 })
@@ -73,17 +91,18 @@ export async function DELETE(request: NextRequest) {
     return NextResponse.json({ success: true })
   } catch (error) {
     console.log(error)
-    return NextResponse.json(
-      { error: "Failed to delete todo" },
-      { status: 500 }
-    )
+    return errorHandler(error, "Failed to delete todo")
   }
 }
 
 export async function PUT(request: NextRequest) {
-  const userId = await getUserIdFromRequestHeaderToken(request)
+  const rawToken = request.headers.get("Authorization") || ""
+  const token = rawToken.replace("Bearer ", "")
 
   try {
+    const decoded = jwt.verify(token, process.env.SECRET_KEY!) as { id: number }
+    const userId = decoded.id
+
     const { id, title, description, dueDate, isCompleted } =
       await request.json()
     if (!id) {
@@ -98,9 +117,6 @@ export async function PUT(request: NextRequest) {
     return NextResponse.json({ id, title, description, dueDate, isCompleted })
   } catch (error) {
     console.log(error)
-    return NextResponse.json(
-      { error: "Failed to update todo" },
-      { status: 500 }
-    )
+    return errorHandler(error, "Failed to update todo")
   }
 }
