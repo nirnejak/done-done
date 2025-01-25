@@ -45,8 +45,6 @@ const AuthForm: React.FC = () => {
     } else {
       loginUser(email, password)
     }
-
-    setFormState(initialFormState)
   }
 
   return (
