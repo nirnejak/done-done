@@ -31,15 +31,15 @@
     "use-sound": "^4.0.3"
   },
   "devDependencies": {
-    "@eslint/js": "^9.18.0",
+    "@eslint/js": "^9.19.0",
     "@tailwindcss/postcss": "^4.0.0",
     "@types/bcryptjs": "^2.4.6",
     "@types/jsonwebtoken": "^9.0.8",
     "@types/node": "^22.10.10",
     "@types/react": "^19.0.8",
     "drizzle-kit": "^0.30.2",
-    "eslint": "^9.18.0",
-    "eslint-config-love": "^117.0.0",
+    "eslint": "^9.19.0",
+    "eslint-config-love": "^118.0.0",
     "eslint-config-next": "^15.1.6",
     "eslint-config-prettier": "^10.0.1",
     "eslint-plugin-jsx-a11y": "^6.10.2",
@@ -55,7 +55,7 @@
     "prettier-plugin-tailwindcss": "^0.6.11",
     "tailwindcss": "^4.0.0",
     "typescript": "^5.7.3",
-    "typescript-eslint": "8.20"
+    "typescript-eslint": "^8.21.0"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": "eslint"
