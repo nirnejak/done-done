@@ -83,27 +83,24 @@ const AddTask: React.FC = () => {
             )}
           </AnimatePresence>
           <div className="absolute bottom-3.5 right-3.5 z-5 flex items-center gap-1.5">
-            <AnimatePresence mode="popLayout" initial={false}>
-              {isFocused && (
-                <motion.div
-                  transition={BASE_TRANSITION}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  className="text-xs bg-neutral-200 pl-3 pr-2.5 py-1.5 rounded-xl dark:bg-neutral-800 dark:text-neutral-200"
-                >
-                  <span className="mr-1 font-medium">Due:</span>
-                  <input
-                    type="date"
-                    value={dueDate}
-                    onChange={(e) => {
-                      setDueDate(e.target.value)
-                    }}
-                    className="text-xs w-[96px] outline-hidden"
-                  />
-                </motion.div>
-              )}
-            </AnimatePresence>
+            {isFocused && (
+              <motion.div
+                transition={BASE_TRANSITION}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="text-xs bg-neutral-200 pl-3 pr-2.5 py-1.5 rounded-xl dark:bg-neutral-800 dark:text-neutral-200"
+              >
+                <span className="mr-1 font-medium">Due:</span>
+                <input
+                  type="date"
+                  value={dueDate}
+                  onChange={(e) => {
+                    setDueDate(e.target.value)
+                  }}
+                  className="text-xs w-[96px] outline-hidden"
+                />
+              </motion.div>
+            )}
             <button
               onClick={(e) => e.stopPropagation()}
               className={classNames(
