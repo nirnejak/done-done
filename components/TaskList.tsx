@@ -23,12 +23,12 @@ const TaskList: React.FC<Props> = () => {
     undefined
   )
 
-  const openEditTaskModal = (id: string): void => {
+  const openEditTaskModal = (id: number): void => {
     setIsEditing(true)
     setSelectedTask(tasks.find((task) => task.id === id))
   }
 
-  const deleteTask = (id: string): void => {
+  const deleteTask = (id: number): void => {
     setIsDeleting(true)
     setSelectedTask(tasks.find((task) => task.id === id))
   }

@@ -6,7 +6,7 @@ import { useTasks } from "@/context/TasksContext"
 import Modal from "@/components/atoms/Modal"
 
 interface Props {
-  taskId: string
+  taskId: number
   closeModal: () => void
 }
 

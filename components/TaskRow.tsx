@@ -16,9 +16,9 @@ import type { TASK } from "@/context/TasksContext"
 
 interface Props {
   task: TASK
-  editTask: (id: string) => void
-  deleteTask: (id: string) => void
-  toggleTask: (id: string) => void
+  editTask: (id: number) => void
+  deleteTask: (id: number) => void
+  toggleTask: (id: number) => void
 }
 
 const TaskRow: React.FC<Props> = ({
