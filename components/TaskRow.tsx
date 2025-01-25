@@ -84,7 +84,7 @@ const TaskRow: React.FC<Props> = ({
             <div
               className={classNames(
                 task.isCompleted ? " line-through" : "",
-                "text-xs"
+                "text-xs text-neutral-400 group-hover:text-neutral-600 dark:text-neutral-500 dark:group-hover:text-neutral-400"
               )}
             >
               Due {fromNow(new Date(task.dueDate))}

@@ -54,7 +54,7 @@ const TaskList: React.FC<Props> = () => {
             <div className="mb-2 flex items-center text-neutral-500">
               <p className="text-xs font-medium">Tasks</p>
               <button
-                className="-mr-1 ml-auto rounded-sm p-1 outline-hidden hover:bg-neutral-200/50 focus:bg-neutral-200/50"
+                className="-mr-1 ml-auto rounded-sm p-1 outline-hidden hover:bg-neutral-200/50 focus:bg-neutral-200/50 dark:hover:bg-neutral-200/10 dark:focus:bg-neutral-200/10"
                 onKeyDown={(e) => {
                   e.key === "Enter" && sortTasksAlphabetically()
                 }}
