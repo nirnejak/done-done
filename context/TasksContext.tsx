@@ -4,6 +4,7 @@ import * as React from "react"
 import { toast } from "sonner"
 
 import { useAuth } from "./AuthContext"
+import { getTodos, removeTodo } from "./api/tasks"
 
 export interface TASK {
   id: number
@@ -38,22 +39,8 @@ const TasksProvider: React.FC<Props> = ({ children }) => {
   React.useEffect(() => {
     if (user.token) {
       const fetchTodos = async () => {
-        try {
-          const response = await fetch("/api/todo", {
-            method: "GET",
-            headers: { Authorization: user.token },
-          })
-          const data = await response.json()
-
-          setTasks(data)
-          const localTasks = localStorage.getItem(LOCAL_STORAGE_FIELD)
-          if (localTasks !== null) {
-            const parsedLocalTasks = JSON.parse(localTasks) as TASK[]
-            // TODO: sync parsedLocalTasks with data
-          }
-        } catch (error) {
-          console.error(error)
-        }
+        const data = await getTodos(user.token)
+        setTasks(data)
       }
       fetchTodos()
     }
@@ -64,14 +51,18 @@ const TasksProvider: React.FC<Props> = ({ children }) => {
     setTasks(orderedTasks)
   }
 
-  const addTask = (title: string, description: string): void => {
+  const addTask = (
+    title: string,
+    description: string,
+    dueDate: string
+  ): void => {
     setTasks((tasks) => {
       const updatedTasks = [
         {
           id: 1,
           title,
           description,
-          dueDate: "",
+          dueDate,
           isCompleted: false,
         },
         ...tasks,
@@ -86,15 +77,17 @@ const TasksProvider: React.FC<Props> = ({ children }) => {
     })
   }
 
-  const removeTask = (id: number): void => {
+  const removeTask = async (id: number): Promise<void> => {
     setTasks((tasks) => {
       const updatedTasks = tasks.filter((task) => task.id !== id)
-
       localStorage.setItem(LOCAL_STORAGE_FIELD, JSON.stringify(updatedTasks))
-      toast.success("Task removed successfully")
-
       return updatedTasks
     })
+    const data = await removeTodo(user.token, id)
+
+    if (data.success) {
+      toast.success("Task removed successfully")
+    }
   }
 
   const updateTask = (id: number, title: string, description: string): void => {
