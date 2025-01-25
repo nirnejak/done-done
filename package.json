@@ -16,6 +16,7 @@
   "dependencies": {
     "akar-icons": "^1.9.31",
     "bcryptjs": "^2.4.3",
+    "date-fns": "^4.1.0",
     "dotenv": "^16.4.7",
     "drizzle-orm": "^0.38.4",
     "jsonwebtoken": "^9.0.2",
