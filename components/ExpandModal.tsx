@@ -4,7 +4,7 @@ import * as React from "react"
 import classNames from "@/utils/classNames"
 
 import Modal from "@/components/atoms/Modal"
-import { CircleCheckFill, Pencil, TrashBin } from "akar-icons"
+import { Circle, CircleCheckFill, Pencil, TrashBin } from "akar-icons"
 
 import { useTasks, type TASK } from "@/context/TasksContext"
 import { formatToDate } from "@/utils/datetime"
@@ -55,11 +55,25 @@ const ExpandModal: React.FC<Props> = ({
             <span>Edit</span>
           </button>
           <button
-            onClick={() => toggleTask(task.id)}
-            className="flex-1 flex gap-1 items-center justify-center rounded-lg bg-neutral-800 px-5 py-2 text-sm text-neutral-50 transition-all hover:bg-neutral-900 focus:bg-neutral-900 focus:outline-hidden active:scale-95 dark:bg-neutral-300 dark:text-neutral-900 dark:hover:bg-neutral-200 dark:focus:bg-neutral-200"
+            onClick={() => {
+              toggleTask(task.id)
+              closeModal()
+            }}
+            className={classNames(
+              "flex gap-1 items-center justify-center rounded-lg bg-neutral-800 px-5 py-2 text-sm text-neutral-50 transition-all hover:bg-neutral-900 focus:bg-neutral-900 focus:outline-hidden active:scale-95 dark:bg-neutral-300 dark:text-neutral-900 dark:hover:bg-neutral-200 dark:focus:bg-neutral-200"
+            )}
           >
-            <CircleCheckFill size={17} />
-            <span>Mark done</span>
+            {task.isCompleted ? (
+              <>
+                <Circle size={17} />
+                <span>Mark undone</span>
+              </>
+            ) : (
+              <>
+                <CircleCheckFill size={17} />
+                <span>Mark as done</span>
+              </>
+            )}
           </button>
         </div>
       </div>
