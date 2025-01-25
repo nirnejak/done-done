@@ -27,7 +27,10 @@ export async function GET(request: NextRequest) {
     const decoded = jwt.verify(token, process.env.SECRET_KEY!) as { id: number }
     const userId = decoded.id
 
-    const allTodos = await db.select().from(todos).where({ user_id: userId })
+    const allTodos = await db
+      .select()
+      .from(todos)
+      .where({ user_id: userId } as any)
 
     return NextResponse.json(
       allTodos.map((todo) => ({
@@ -87,7 +90,7 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ error: "ID is required" }, { status: 400 })
     }
 
-    await db.delete(todos).where(and({ id }, { user_id: userId }))
+    await db.delete(todos).where(and({ id } as any, { user_id: userId } as any))
     return NextResponse.json({ success: true })
   } catch (error) {
     console.log(error)
@@ -112,7 +115,7 @@ export async function PUT(request: NextRequest) {
     await db
       .update(todos)
       .set({ title, description, dueDate, isCompleted })
-      .where(and({ id }, { user_id: userId }))
+      .where(and({ id } as any, { user_id: userId } as any))
 
     return NextResponse.json({ id, title, description, dueDate, isCompleted })
   } catch (error) {
