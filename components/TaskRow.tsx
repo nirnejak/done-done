@@ -110,7 +110,7 @@ const TaskRow: React.FC<Props> = ({
               <Pencil size={17} />
             </button>
             <button
-              className="rounded-sm p-1 text-red-400 transition-colors hover:bg-red-100 hover:text-red-600 focus:bg-red-100 focus:text-red-600 dark:hover:bg-red-900 dark:focus:bg-red-900"
+              className="rounded-sm p-1 text-red-400 transition-colors hover:bg-red-100 hover:text-red-500 focus:bg-red-100 focus:text-red-500 dark:hover:bg-neutral-900 dark:focus:bg-red-600/20"
               onClick={(e) => {
                 e.stopPropagation()
                 deleteTask(task.id)
