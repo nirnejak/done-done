@@ -95,15 +95,13 @@ const TasksProvider: React.FC<Props> = ({ children }) => {
     dueDate: string
   ): Promise<void> => {
     const newTask = await addTodo(user.token, title, description, dueDate)
+    toast.success("Task added successfully", {
+      description: title,
+    })
 
     setTasks((tasks) => {
       const updatedTasks = [newTask, ...tasks]
-
       localStorage.setItem(LOCAL_STORAGE_FIELD, JSON.stringify(updatedTasks))
-      toast.success("Task added successfully", {
-        description: title,
-      })
-
       return updatedTasks
     })
   }
