@@ -33,7 +33,7 @@ export async function POST(request: Request) {
       token,
       user: { id, name, email },
     })
-  } catch (error) {
+  } catch (error: any) {
     if (
       typeof error.message === "string" &&
       error.message.includes("Duplicate entry")
