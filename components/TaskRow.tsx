@@ -7,10 +7,12 @@ import {
   DragVerticalFill,
   Circle,
   CircleCheckFill,
+  Enlarge,
 } from "akar-icons"
 import { Reorder, useDragControls, useMotionValue } from "motion/react"
 
 import classNames from "@/utils/classNames"
+import { fromNow } from "@/utils/datetime"
 
 import type { TASK } from "@/context/TasksContext"
 
@@ -19,6 +21,7 @@ interface Props {
   editTask: (id: number) => void
   deleteTask: (id: number) => void
   toggleTask: (id: number) => void
+  expandTask: (id: number) => void
 }
 
 const TaskRow: React.FC<Props> = ({
@@ -26,6 +29,7 @@ const TaskRow: React.FC<Props> = ({
   editTask,
   deleteTask,
   toggleTask,
+  expandTask,
 }) => {
   const y = useMotionValue(0)
   const dragControls = useDragControls()
@@ -48,6 +52,7 @@ const TaskRow: React.FC<Props> = ({
             e.key === "Enter" && toggleTask(task.id)
           }}
           onClick={(e) => {
+            e.stopPropagation()
             toggleTask(task.id)
           }}
           className="my-0 flex items-center gap-1 truncate p-1 text-sm"
@@ -75,7 +80,26 @@ const TaskRow: React.FC<Props> = ({
           </label>
         </div>
         <div className="ml-auto flex items-center gap-2">
+          {task.dueDate && (
+            <div
+              className={classNames(
+                task.isCompleted ? " line-through" : "",
+                "text-xs"
+              )}
+            >
+              Due {fromNow(new Date(task.dueDate))}
+            </div>
+          )}
           <div className="hidden group-hover:flex group-focus:flex">
+            <button
+              className="rounded-sm p-1 text-neutral-400 transition-colors hover:bg-neutral-200 hover:text-neutral-600 focus:bg-neutral-200 focus:text-neutral-600 dark:hover:bg-neutral-900 dark:focus:bg-neutral-900"
+              onClick={(e) => {
+                e.stopPropagation()
+                expandTask(task.id)
+              }}
+            >
+              <Enlarge size={17} />
+            </button>
             <button
               className="rounded-sm p-1 text-neutral-400 transition-colors hover:bg-neutral-200 hover:text-neutral-600 focus:bg-neutral-200 focus:text-neutral-600 dark:hover:bg-neutral-900 dark:focus:bg-neutral-900"
               onClick={(e) => {
