@@ -89,7 +89,7 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
         setUser((user) => {
           const newUser = {
             ...user,
-            name: data.name,
+            name: data.user.name,
             email,
             token: data.token,
           }
@@ -107,8 +107,8 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
   }
 
   const logoutUser = (): void => {
-    setUser(user)
-    localStorage.setItem(LOCAL_STORAGE_FIELD, JSON.stringify(user))
+    setUser(initialUser)
+    localStorage.setItem(LOCAL_STORAGE_FIELD, JSON.stringify(initialUser))
     toast("Logged out", {
       icon: <SignOut size={15} />,
     })
