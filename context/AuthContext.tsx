@@ -57,6 +57,7 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
       if (response.ok) {
         const data = await response.json()
         if (data.token) {
+          toast.success("Registered successfully, logging in")
           setUser((user) => {
             const newUser = {
               ...user,
@@ -65,18 +66,14 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
               token: data.token,
             }
             localStorage.setItem(LOCAL_STORAGE_FIELD, JSON.stringify(newUser))
-            toast.success("Registered successfully, logging in")
-
             return newUser
           })
-          redirect("/tasks")
         }
       } else {
         const data = await response.json()
         toast.success(data.error)
       }
     } catch (error) {
-      console.error(error)
       toast.error("Registration failed")
     }
   }
@@ -91,19 +88,19 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
 
       if (response.ok) {
         const data = await response.json()
+        toast.success("Logged in successfully")
+
         if (data.token) {
-          setUser((user) => {
+          setUser(() => {
             const newUser = {
               name: data.user.name,
               email,
               token: data.token,
             }
             localStorage.setItem(LOCAL_STORAGE_FIELD, JSON.stringify(newUser))
-            toast.success("Logged in successfully")
 
             return newUser
           })
-          redirect("/tasks")
         }
       } else {
         const data = await response.json()
@@ -111,7 +108,7 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
       }
     } catch (error) {
       console.error(error)
-      toast.error("Registration failed")
+      toast.error("Login failed")
     }
   }
 
