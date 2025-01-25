@@ -9,6 +9,7 @@ import { useTasks, type TASK } from "@/context/TasksContext"
 import useModal from "@/hooks/useModal"
 
 import TaskRow from "@/components/TaskRow"
+import ExpandModal from "@/components/ExpandModal"
 import EditModal from "@/components/EditModal"
 import DeleteModal from "@/components/DeleteModal"
 
@@ -17,18 +18,24 @@ interface Props {}
 const TaskList: React.FC<Props> = () => {
   const { tasks, toggleTask, sortTasksAlphabetically, reorderTasks } =
     useTasks()
+  const [isExpanded, setIsExpanded] = useModal()
   const [isEditing, setIsEditing] = useModal()
   const [isDeleting, setIsDeleting] = useModal()
   const [selectedTask, setSelectedTask] = React.useState<TASK | undefined>(
     undefined
   )
 
+  const openExpandTaskModal = (id: number): void => {
+    setIsExpanded(true)
+    setSelectedTask(tasks.find((task) => task.id === id))
+  }
+
   const openEditTaskModal = (id: number): void => {
     setIsEditing(true)
     setSelectedTask(tasks.find((task) => task.id === id))
   }
 
-  const deleteTask = (id: number): void => {
+  const openDeleteTaskModal = (id: number): void => {
     setIsDeleting(true)
     setSelectedTask(tasks.find((task) => task.id === id))
   }
@@ -67,14 +74,34 @@ const TaskList: React.FC<Props> = () => {
                   key={task.id}
                   task={task}
                   toggleTask={toggleTask}
+                  expandTask={openExpandTaskModal}
                   editTask={openEditTaskModal}
-                  deleteTask={deleteTask}
+                  deleteTask={openDeleteTaskModal}
                 />
               ))}
             </Reorder.Group>
           </div>
         </motion.div>
       </motion.div>
+      <AnimatePresence mode="popLayout">
+        {isExpanded && selectedTask !== undefined && (
+          <ExpandModal
+            task={selectedTask}
+            closeModal={() => {
+              setSelectedTask(undefined)
+              setIsExpanded(false)
+            }}
+            openEditTaskModal={() => {
+              setIsEditing(true)
+              setIsExpanded(false)
+            }}
+            openDeleteTaskModal={() => {
+              setIsDeleting(true)
+              setIsExpanded(false)
+            }}
+          />
+        )}
+      </AnimatePresence>
       <AnimatePresence mode="popLayout">
         {isEditing && selectedTask !== undefined && (
           <EditModal
