@@ -34,7 +34,16 @@ export async function POST(request: Request) {
       user: { id, name, email },
     })
   } catch (error) {
-    console.log(error)
-    return NextResponse.json({ error: "Failed to register" }, { status: 500 })
+    if (
+      typeof error.message === "string" &&
+      error.message.includes("Duplicate entry")
+    ) {
+      return NextResponse.json(
+        { error: "Email already in use" },
+        { status: 400 }
+      )
+    } else {
+      return NextResponse.json({ error: "Failed to register" }, { status: 500 })
+    }
   }
 }
