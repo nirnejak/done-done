@@ -60,9 +60,14 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Title is required" }, { status: 400 })
     }
 
+    let fields: Record<string, any> = { title, userId, description }
+    if (dueDate) {
+      fields = { ...fields, dueDate }
+    }
+
     const newTodo = await db
       .insert(todos)
-      .values({ title, userId, description, dueDate })
+      .values(fields as any)
       .$returningId()
     return NextResponse.json({
       id: newTodo[0].id,
@@ -112,9 +117,14 @@ export async function PUT(request: NextRequest) {
       return NextResponse.json({ error: "ID is required" }, { status: 400 })
     }
 
+    let fields: Record<string, any> = { title, description, isCompleted }
+    if (dueDate) {
+      fields = { ...fields, dueDate }
+    }
+
     await db
       .update(todos)
-      .set({ title, description, dueDate, isCompleted })
+      .set(fields)
       .where(and({ id } as any, { user_id: userId } as any))
 
     return NextResponse.json({ id, title, description, dueDate, isCompleted })
