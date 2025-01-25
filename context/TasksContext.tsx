@@ -2,21 +2,23 @@
 import * as React from "react"
 
 import { toast } from "sonner"
-import { nanoid } from "nanoid"
+
+import { useAuth } from "./AuthContext"
 
 export interface TASK {
-  id: string
+  id: number
   title: string
   description: string
+  dueDate: string
   isCompleted: boolean
 }
 
 export interface TASKS_CONTEXT {
   tasks: TASK[]
   addTask: (title: string, description: string) => void
-  updateTask: (id: string, title: string, description: string) => void
-  removeTask: (id: string) => void
-  toggleTask: (id: string) => void
+  updateTask: (id: number, title: string, description: string) => void
+  removeTask: (id: number) => void
+  toggleTask: (id: number) => void
   sortTasksAlphabetically: () => void
   reorderTasks: (tasks: TASK[]) => void
 }
@@ -30,14 +32,32 @@ interface Props {
 const LOCAL_STORAGE_FIELD = "tasks"
 
 const TasksProvider: React.FC<Props> = ({ children }) => {
+  const { user } = useAuth()
   const [tasks, setTasks] = React.useState<TASK[]>([])
 
   React.useEffect(() => {
-    const localTasks = localStorage.getItem(LOCAL_STORAGE_FIELD)
-    if (localTasks !== null) {
-      setTasks(JSON.parse(localTasks) as TASK[])
+    if (user.token) {
+      const fetchTodos = async () => {
+        try {
+          const response = await fetch("/api/todo", {
+            method: "GET",
+            headers: { Authorization: user.token },
+          })
+          const data = await response.json()
+
+          setTasks(data)
+          const localTasks = localStorage.getItem(LOCAL_STORAGE_FIELD)
+          if (localTasks !== null) {
+            const parsedLocalTasks = JSON.parse(localTasks) as TASK[]
+            // TODO: sync parsedLocalTasks with data
+          }
+        } catch (error) {
+          console.error(error)
+        }
+      }
+      fetchTodos()
     }
-  }, [])
+  }, [user.token])
 
   const reorderTasks = (orderedTasks: TASK[]): void => {
     localStorage.setItem(LOCAL_STORAGE_FIELD, JSON.stringify(orderedTasks))
@@ -48,9 +68,10 @@ const TasksProvider: React.FC<Props> = ({ children }) => {
     setTasks((tasks) => {
       const updatedTasks = [
         {
-          id: v4(),
-          title: title,
-          description: "",
+          id: 1,
+          title,
+          description,
+          dueDate: "",
           isCompleted: false,
         },
         ...tasks,
@@ -65,7 +86,7 @@ const TasksProvider: React.FC<Props> = ({ children }) => {
     })
   }
 
-  const removeTask = (id: string): void => {
+  const removeTask = (id: number): void => {
     setTasks((tasks) => {
       const updatedTasks = tasks.filter((task) => task.id !== id)
 
@@ -76,7 +97,7 @@ const TasksProvider: React.FC<Props> = ({ children }) => {
     })
   }
 
-  const updateTask = (id: string, title: string, description: string): void => {
+  const updateTask = (id: number, title: string, description: string): void => {
     setTasks((tasks) => {
       const updatedTasks = tasks.map((task) => {
         if (task.id === id) {
@@ -97,7 +118,7 @@ const TasksProvider: React.FC<Props> = ({ children }) => {
     })
   }
 
-  const toggleTask = (id: string): void => {
+  const toggleTask = (id: number): void => {
     setTasks((tasks) => {
       const updatedTasks = tasks.map((task) => {
         if (task.id === id) {
