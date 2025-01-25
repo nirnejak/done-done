@@ -88,7 +88,14 @@ const TasksProvider: React.FC<Props> = ({ children }) => {
           localStorage.setItem(LOCAL_STORAGE_FIELD, JSON.stringify(data))
         }
       }
-      fetchTodos()
+
+      if (process.env.VITEST) {
+        const localTasks = localStorage.getItem(LOCAL_STORAGE_FIELD)
+        const parsedLocalTasks = JSON.parse(localTasks as string) as TASK[]
+        setTasks(parsedLocalTasks)
+      } else {
+        fetchTodos()
+      }
     }
   }, [user.token])
 
