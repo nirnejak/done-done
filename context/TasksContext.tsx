@@ -59,7 +59,7 @@ const TasksProvider: React.FC<Props> = ({ children }) => {
         const localTasks = localStorage.getItem(LOCAL_STORAGE_FIELD)
 
         // Sync local while keeping the order same
-        if (localTasks !== null) {
+        if (localTasks !== null && localTasks !== "undefined") {
           const parsedLocalTasks = JSON.parse(localTasks) as TASK[]
 
           // if item isn't present in remote, remove it from local

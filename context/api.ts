@@ -1,12 +1,28 @@
+import { redirect } from "next/navigation"
+import { toast } from "sonner"
+
+const responseErrorHandling = (status: number) => {
+  if (status === 401) {
+    toast("Session expired")
+    localStorage.clear()
+    redirect("/")
+  } else {
+    toast("Something went wrong")
+  }
+}
+
 export const getTodos = async (token: string) => {
   try {
     const response = await fetch("/api/todo", {
       method: "GET",
       headers: { Authorization: token },
     })
-    const data = await response.json()
-
-    return data
+    if (response.ok) {
+      const data = await response.json()
+      return data
+    } else {
+      responseErrorHandling(response.status)
+    }
   } catch (error) {
     console.error(error)
   }
@@ -24,9 +40,12 @@ export const addTodo = async (
       headers: { Authorization: token },
       body: JSON.stringify({ title, description, dueDate }),
     })
-    const data = await response.json()
-
-    return data
+    if (response.ok) {
+      const data = await response.json()
+      return data
+    } else {
+      responseErrorHandling(response.status)
+    }
   } catch (error) {
     console.error(error)
   }
@@ -46,9 +65,12 @@ export const updateTodo = async (
       headers: { Authorization: token },
       body: JSON.stringify({ id, title, description, dueDate, isCompleted }),
     })
-    const data = await response.json()
-
-    return data
+    if (response.ok) {
+      const data = await response.json()
+      return data
+    } else {
+      responseErrorHandling(response.status)
+    }
   } catch (error) {
     console.error(error)
   }
@@ -65,9 +87,12 @@ export const toggleTodo = async (
       headers: { Authorization: token },
       body: JSON.stringify({ id, isCompleted }),
     })
-    const data = await response.json()
-
-    return data
+    if (response.ok) {
+      const data = await response.json()
+      return data
+    } else {
+      responseErrorHandling(response.status)
+    }
   } catch (error) {
     console.error(error)
   }
@@ -80,9 +105,12 @@ export const removeTodo = async (token: string, id: number) => {
       headers: { Authorization: token },
       body: JSON.stringify({ id }),
     })
-    const data = await response.json()
-
-    return data
+    if (response.ok) {
+      const data = await response.json()
+      return data
+    } else {
+      responseErrorHandling(response.status)
+    }
   } catch (error) {
     console.error(error)
   }
