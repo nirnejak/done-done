@@ -5,6 +5,7 @@ import {
   text,
   date,
   int,
+  boolean,
 } from "drizzle-orm/mysql-core"
 
 export const users = mysqlTable("users", {
@@ -21,5 +22,6 @@ export const todos = mysqlTable("todos", {
     .references(() => users.id),
   title: varchar("title", { length: 255 }).notNull(),
   description: text("description"),
-  due_date: date("due_date"),
+  dueDate: date("due_date"),
+  isCompleted: boolean("is_completed").default(false),
 })
