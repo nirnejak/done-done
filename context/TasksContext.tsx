@@ -58,24 +58,32 @@ const TasksProvider: React.FC<Props> = ({ children }) => {
         const data = await getTodos(user.token)
         const localTasks = localStorage.getItem(LOCAL_STORAGE_FIELD)
 
-        // Sync local while keeping the order same
-        if (localTasks !== null && localTasks !== "undefined") {
-          const parsedLocalTasks = JSON.parse(localTasks) as TASK[]
+        try {
+          // Sync local while keeping the order same
+          if (localTasks !== null && localTasks !== "undefined") {
+            const parsedLocalTasks = JSON.parse(localTasks) as TASK[]
 
-          // if item isn't present in remote, remove it from local
-          const validLocalTasks = parsedLocalTasks.filter((task) => {
-            return data.some((t: TASK) => t.id === task.id)
-          })
-          // update local items from remote
-          const updatedLocalTasks = validLocalTasks.map((task) => {
-            return data.find((t: TASK) => t.id === task.id)
-          })
-          // if there are new items, put them at the start
-          const mergedTasks = mergeUniqueTasks(updatedLocalTasks, data)
+            // if item isn't present in remote, remove it from local
+            const validLocalTasks = parsedLocalTasks.filter((task) => {
+              return data.some((t: TASK) => t.id === task.id)
+            })
+            // update local items from remote
+            const updatedLocalTasks = validLocalTasks.map((task) => {
+              return data.find((t: TASK) => t.id === task.id)
+            })
+            // if there are new items, put them at the start
+            const mergedTasks = mergeUniqueTasks(updatedLocalTasks, data)
 
-          setTasks(mergedTasks)
-          localStorage.setItem(LOCAL_STORAGE_FIELD, JSON.stringify(mergedTasks))
-        } else {
+            setTasks(mergedTasks)
+            localStorage.setItem(
+              LOCAL_STORAGE_FIELD,
+              JSON.stringify(mergedTasks)
+            )
+          } else {
+            setTasks(data)
+            localStorage.setItem(LOCAL_STORAGE_FIELD, JSON.stringify(data))
+          }
+        } catch (error) {
           setTasks(data)
           localStorage.setItem(LOCAL_STORAGE_FIELD, JSON.stringify(data))
         }
