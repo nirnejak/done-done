@@ -13,8 +13,8 @@ const responseErrorHandling = (status: number) => {
 
 const resetAndRedirect = (error: any) => {
   console.error(error)
-  localStorage.clear()
   toast("Something went wrong")
+  localStorage.clear()
   redirect("/")
 }
 
@@ -28,7 +28,6 @@ export const getTodos = async (token: string) => {
       const data = await response.json()
       return data
     } else {
-      console.log("here2")
       responseErrorHandling(response.status)
     }
   } catch (error) {
