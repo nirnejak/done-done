@@ -15,6 +15,8 @@ export interface TASK {
 }
 
 export interface TASKS_CONTEXT {
+  isFetching: boolean
+  isAdding: boolean
   tasks: TASK[]
   addTask: (title: string, description: string, dueDate: string) => void
   updateTask: (
@@ -50,12 +52,16 @@ const mergeUniqueTasks = (updatedLocalTasks: TASK[], data: TASK[]): TASK[] => {
 
 const TasksProvider: React.FC<Props> = ({ children }) => {
   const { user } = useAuth()
+  const [isFetching, setFetching] = React.useState(false)
+  const [isAdding, setIsAdding] = React.useState(false)
   const [tasks, setTasks] = React.useState<TASK[]>([])
 
   React.useEffect(() => {
     if (user.token) {
       const fetchTodos = async () => {
+        setFetching(true)
         const data = await getTodos(user.token)
+        setFetching(false)
         const localTasks = localStorage.getItem(LOCAL_STORAGE_FIELD)
 
         try {
@@ -109,7 +115,9 @@ const TasksProvider: React.FC<Props> = ({ children }) => {
     description: string,
     dueDate: string
   ): Promise<void> => {
+    setIsAdding(true)
     const newTask = await addTodo(user.token, title, description, dueDate)
+    setIsAdding(false)
     toast.success("Task added successfully", {
       description: title,
     })
@@ -215,6 +223,8 @@ const TasksProvider: React.FC<Props> = ({ children }) => {
   return (
     <TasksContext.Provider
       value={{
+        isFetching,
+        isAdding,
         tasks,
         addTask,
         updateTask,

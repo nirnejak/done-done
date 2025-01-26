@@ -1,7 +1,7 @@
 "use client"
 import * as React from "react"
 
-import { Plus, Calendar as CalendarIcon } from "akar-icons"
+import { Plus, ArrowClockwise } from "akar-icons"
 import { AnimatePresence, motion } from "motion/react"
 
 import classNames from "@/utils/classNames"
@@ -13,7 +13,7 @@ import useClickOutside from "@/hooks/useClickOutside"
 import { useTasks } from "@/context/TasksContext"
 
 const AddTask: React.FC = () => {
-  const { addTask } = useTasks()
+  const { isAdding, addTask } = useTasks()
 
   const { ref, height } = useDynamicHeight()
   const [isFocused, setIsFocused] = React.useState(false)
@@ -26,6 +26,12 @@ const AddTask: React.FC = () => {
   const [title, setTitle] = React.useState("")
   const [description, setDescription] = React.useState("")
   const [dueDate, setDueDate] = React.useState("")
+
+  React.useEffect(() => {
+    if (title.length) {
+      setIsFocused(true)
+    }
+  }, [title])
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
@@ -109,8 +115,17 @@ const AddTask: React.FC = () => {
                 "dark:bg-neutral-300 dark:text-neutral-900 dark:hover:bg-neutral-200 dark:focus:bg-neutral-200"
               )}
             >
-              <span>Add task</span>
-              <Plus size={11} />
+              {isAdding ? (
+                <>
+                  <span>Adding</span>
+                  <ArrowClockwise className="animate-spin" size={11} />
+                </>
+              ) : (
+                <>
+                  <span>Add task</span>
+                  <Plus size={11} />
+                </>
+              )}
             </button>
           </div>
         </div>

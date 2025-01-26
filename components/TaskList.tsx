@@ -2,7 +2,7 @@
 import * as React from "react"
 
 import { AnimatePresence, motion, Reorder } from "motion/react"
-import { Leaf, Sort } from "akar-icons"
+import { ArrowClockwise, Leaf, Sort } from "akar-icons"
 
 import { useTasks, type TASK } from "@/context/TasksContext"
 
@@ -16,8 +16,13 @@ import DeleteModal from "@/components/DeleteModal"
 interface Props {}
 
 const TaskList: React.FC<Props> = () => {
-  const { tasks, toggleTask, sortTasksAlphabetically, reorderTasks } =
-    useTasks()
+  const {
+    isFetching,
+    tasks,
+    toggleTask,
+    sortTasksAlphabetically,
+    reorderTasks,
+  } = useTasks()
   const [isExpanded, setIsExpanded] = useModal()
   const [isEditing, setIsEditing] = useModal()
   const [isDeleting, setIsDeleting] = useModal()
@@ -50,7 +55,15 @@ const TaskList: React.FC<Props> = () => {
           layout
           className="rounded-2xl bg-neutral-50 px-4 pb-2 pt-4 shadow-heavy dark:bg-neutral-900 dark:shadow-md"
         >
-          {tasks.length === 0 && (
+          {isFetching && (
+            <div className="flex items-center flex-col gap-3 my-10 text-neutral-500">
+              <div className="animate-spin">
+                <ArrowClockwise />
+              </div>
+              <p className="text-center text-sm">Fetching Tasks</p>
+            </div>
+          )}
+          {tasks.length === 0 && isFetching === false && (
             <div className="flex items-center flex-col gap-3 my-10 text-neutral-500">
               <div>
                 <Leaf />
