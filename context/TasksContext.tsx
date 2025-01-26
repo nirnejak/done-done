@@ -3,6 +3,7 @@ import * as React from "react"
 
 import { toast } from "sonner"
 import useSound from "use-sound"
+import { TrashBin } from "akar-icons"
 
 import { useAuth } from "./AuthContext"
 import { getTodos, addTodo, removeTodo, updateTodo } from "./api"
@@ -144,7 +145,9 @@ const TasksProvider: React.FC<Props> = ({ children }) => {
     const data = await removeTodo(user.token, id)
 
     if (data.success) {
-      toast.success("Task removed successfully")
+      toast.success("Task removed successfully", {
+        icon: <TrashBin size={16} />,
+      })
     }
   }
 
