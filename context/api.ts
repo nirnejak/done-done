@@ -4,11 +4,11 @@ import { toast } from "sonner"
 const responseErrorHandling = (status: number) => {
   if (status === 401) {
     toast("Session expired")
-    localStorage.clear()
-    redirect("/")
   } else {
     toast("Something went wrong")
   }
+  localStorage.clear()
+  redirect("/")
 }
 
 const resetAndRedirect = (error: any) => {
@@ -28,6 +28,7 @@ export const getTodos = async (token: string) => {
       const data = await response.json()
       return data
     } else {
+      console.log("here2")
       responseErrorHandling(response.status)
     }
   } catch (error) {
