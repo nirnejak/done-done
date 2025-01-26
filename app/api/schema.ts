@@ -1,23 +1,23 @@
 import {
-  mysqlTable,
+  pgTable,
   serial,
   varchar,
   text,
   date,
-  int,
+  integer,
   boolean,
-} from "drizzle-orm/mysql-core"
+} from "drizzle-orm/pg-core"
 
-export const users = mysqlTable("users", {
+export const users = pgTable("users", {
   id: serial("id").primaryKey(),
   name: varchar("name", { length: 255 }).notNull(),
   email: varchar("email", { length: 255 }).notNull(),
   password: text("password").notNull(),
 })
 
-export const todos = mysqlTable("todos", {
+export const todos = pgTable("todos", {
   id: serial("id").primaryKey(),
-  userId: int("user_id")
+  userId: integer("user_id")
     .notNull()
     .references(() => users.id),
   title: varchar("title", { length: 255 }).notNull(),
