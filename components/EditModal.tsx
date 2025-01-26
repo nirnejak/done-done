@@ -64,7 +64,6 @@ const EditModal: React.FC<Props> = ({ task, closeModal }) => {
             "dark:bg-neutral-800 dark:focus:border-neutral-700 dark:text-neutral-300 placeholder:text-neutral-500 dark:border-neutral-700"
           )}
           rows={3}
-          required
         />
         <label
           htmlFor="due-date"
