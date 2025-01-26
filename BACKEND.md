@@ -1,12 +1,13 @@
 # Backend Setup
 
 1. Please create an `.env` file from `.env.example`, add database credentials and JWT secret
-2. Create a MySQL database with the name `todo_list`
+2. Create a MySQL database with the name `todo_list`(if using database with another name update `.env` or `.env.local`)
 3. Create the database table with the following SQL command:
 
 ```sql
+-- Create Users Table
 CREATE TABLE users (
-  id INT AUTO_INCREMENT PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   name VARCHAR(255) NOT NULL,
   email VARCHAR(255) NOT NULL UNIQUE,
   password TEXT NOT NULL
@@ -14,12 +15,12 @@ CREATE TABLE users (
 
 -- Create Todos Table with Foreign Key Reference
 CREATE TABLE todos (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  user_id INT NOT NULL,
+  id SERIAL PRIMARY KEY,
+  user_id INT NOT NULL REFERENCES users(id),
   title VARCHAR(255) NOT NULL,
   description TEXT,
   due_date DATE,
-  FOREIGN KEY (user_id) REFERENCES users(id)
+  is_completed BOOLEAN DEFAULT false NOT NULL
 );
 ```
 
@@ -34,10 +35,10 @@ INSERT INTO users (name, email, password) VALUES
 
 -- Seed Todos Table
 INSERT INTO todos (user_id, title, description, due_date) VALUES
-(1, 'Learn motion.dev', 'Learn Motion(prev Framer Motion)', '2025-01-25'),
+(1, 'Learn motion.dev', 'Learn Motion (previously Framer Motion)', '2025-01-25'),
 (1, 'Build a project', 'Build a todo list.', '2025-01-28'),
-(2, 'Deploy on Vercel', 'Deploy to vercel with a nice domain.', '2025-01-28'),
+(2, 'Deploy on Vercel', 'Deploy to Vercel with a nice domain.', '2025-01-28'),
 (2, 'Record a demo', 'Record a demo using and explaining the app.', '2025-01-28'),
-(3, 'Share Online', 'Share on X, Layers.to and Dribbble', '2025-01-28');
+(3, 'Share Online', 'Share on X, Layers.to, and Dribbble', '2025-01-28');
 
 ```
