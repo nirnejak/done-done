@@ -54,7 +54,11 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
       const response = await fetch("/api/register", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ name, email, password }),
+        body: JSON.stringify({
+          name: name.trim(),
+          email: name.trim(),
+          password,
+        }),
       })
       setIsLoading(false)
 
@@ -90,7 +94,7 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
       const response = await fetch("/api/login", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email: email.trim(), password }),
       })
       setIsLoading(false)
 
