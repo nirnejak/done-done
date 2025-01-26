@@ -11,6 +11,13 @@ const responseErrorHandling = (status: number) => {
   }
 }
 
+const resetAndRedirect = (error: any) => {
+  console.error(error)
+  localStorage.clear()
+  toast("Something went wrong")
+  redirect("/")
+}
+
 export const getTodos = async (token: string) => {
   try {
     const response = await fetch("/api/todo", {
@@ -24,7 +31,7 @@ export const getTodos = async (token: string) => {
       responseErrorHandling(response.status)
     }
   } catch (error) {
-    console.error(error)
+    resetAndRedirect(error)
   }
 }
 
@@ -47,7 +54,7 @@ export const addTodo = async (
       responseErrorHandling(response.status)
     }
   } catch (error) {
-    console.error(error)
+    resetAndRedirect(error)
   }
 }
 
@@ -72,7 +79,7 @@ export const updateTodo = async (
       responseErrorHandling(response.status)
     }
   } catch (error) {
-    console.error(error)
+    resetAndRedirect(error)
   }
 }
 
@@ -94,7 +101,7 @@ export const toggleTodo = async (
       responseErrorHandling(response.status)
     }
   } catch (error) {
-    console.error(error)
+    resetAndRedirect(error)
   }
 }
 
@@ -112,6 +119,6 @@ export const removeTodo = async (token: string, id: number) => {
       responseErrorHandling(response.status)
     }
   } catch (error) {
-    console.error(error)
+    resetAndRedirect(error)
   }
 }
