@@ -8,17 +8,17 @@
 
 ## Backend and Database Setup
 
-> For backend and database setup please refer to BACKEND.md
+> For backend and database setup please refer to [BACKEND.md](https://github.com/nirnejak/done-done/blob/master/BACKEND.md)
 
 ## Available Scripts
 
 **Install Dependencies**
 
+> This project uses the new text based lockfile from Bun 1.2, using an older version of bun won't work.
+
 ```bash
 bun install
 ```
-
-> This project uses the new text based lockfile from Bun 1.2, using an older version of bun won't work.
 
 **Setup Pre-commit**
 
@@ -34,11 +34,11 @@ bun run dev
 
 **Run tests**
 
+> be careful to not run `bun test` instead, which runs bun's own test suite
+
 ```bash
 bun run test
 ```
-
-> be careful to not run bun test instead, which runs bun's own test suite
 
 **Lint all the files**
 
