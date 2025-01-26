@@ -2,6 +2,7 @@
 import * as React from "react"
 
 import { toast } from "sonner"
+import useSound from "use-sound"
 
 import { useAuth } from "./AuthContext"
 import { getTodos, addTodo, removeTodo, updateTodo } from "./api"
@@ -51,6 +52,9 @@ const mergeUniqueTasks = (updatedLocalTasks: TASK[], data: TASK[]): TASK[] => {
 }
 
 const TasksProvider: React.FC<Props> = ({ children }) => {
+  const [playTick] = useSound("../sounds/tick.wav")
+  const [playThunk] = useSound("../sounds/thunk.wav")
+
   const { user } = useAuth()
   const [isFetching, setFetching] = React.useState(false)
   const [isAdding, setIsAdding] = React.useState(false)
@@ -130,6 +134,8 @@ const TasksProvider: React.FC<Props> = ({ children }) => {
   }
 
   const removeTask = async (id: number): Promise<void> => {
+    playThunk()
+
     setTasks((tasks) => {
       const updatedTasks = tasks.filter((task) => task.id !== id)
       localStorage.setItem(LOCAL_STORAGE_FIELD, JSON.stringify(updatedTasks))
@@ -179,6 +185,10 @@ const TasksProvider: React.FC<Props> = ({ children }) => {
     if (taskArr.length > 0) {
       const updatedTask = taskArr[0]
       updatedTask.isCompleted = !updatedTask.isCompleted
+
+      if (updatedTask.isCompleted) {
+        playTick()
+      }
 
       setTasks((tasks) => {
         const updatedTasks = tasks.map((task) => {
