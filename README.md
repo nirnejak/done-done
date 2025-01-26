@@ -8,7 +8,9 @@
 
 ## Backend and Database Setup
 
-> For backend and database setup please refer to [BACKEND.md](https://github.com/nirnejak/done-done/blob/master/BACKEND.md)
+For backend and database setup please refer to [BACKEND.md](https://github.com/nirnejak/done-done/blob/master/BACKEND.md)
+
+---
 
 ## Available Scripts
 

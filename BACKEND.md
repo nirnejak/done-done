@@ -1,7 +1,8 @@
 # Backend Setup
 
 1. Please create an `.env` file from `.env.example`, add database credentials and JWT secret
-2. Create a MySQL database with the name `todo_list`(if using database with another name update `.env` or `.env.local`)
+2. Create a NeonDB(PostgreSQL) database with the name `todo_list`(if using database with another name update credentials in `.env` or `.env.local`)
+   If using MySQL, please use the code from `mysql-implementation`
 3. Create the database table with the following SQL command:
 
 ```sql
