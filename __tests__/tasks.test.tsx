@@ -12,6 +12,7 @@ vi.mock("next/navigation", () => ({
 }))
 
 beforeAll(async () => {
+  localStorage.clear()
   const credentials = {
     email: "hello@nirnejak.com",
     password: "password",
