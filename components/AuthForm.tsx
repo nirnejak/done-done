@@ -3,6 +3,7 @@ import * as React from "react"
 import { redirect } from "next/navigation"
 
 import { motion, AnimatePresence } from "motion/react"
+import { ArrowClockwise } from "akar-icons"
 
 import { BASE_TRANSITION } from "@/utils/animation"
 import classNames from "@/utils/classNames"
@@ -16,7 +17,7 @@ const initialFormState = {
 }
 
 const AuthForm: React.FC = () => {
-  const { user, registerUser, loginUser } = useAuth()
+  const { isLoading, user, registerUser, loginUser } = useAuth()
 
   const { ref, height } = useDynamicHeight()
 
@@ -121,9 +122,12 @@ const AuthForm: React.FC = () => {
 
             <button
               type="submit"
-              className="mt-2 rounded-lg bg-neutral-800 px-5 py-2 text-sm capitalize text-neutral-50 transition-all hover:bg-neutral-900 focus:bg-neutral-900 focus:outline-hidden active:scale-95 dark:bg-neutral-300 dark:text-neutral-900 dark:hover:bg-neutral-200 dark:focus:bg-neutral-200"
+              className="mt-2 flex items-center justify-center gap-2 rounded-lg bg-neutral-800 px-5 py-2 text-sm capitalize text-neutral-50 transition-all hover:bg-neutral-900 focus:bg-neutral-900 focus:outline-hidden active:scale-95 dark:bg-neutral-300 dark:text-neutral-900 dark:hover:bg-neutral-200 dark:focus:bg-neutral-200"
             >
               {authState}
+              {isLoading && (
+                <ArrowClockwise className="animate-spin" size={12} />
+              )}
             </button>
           </form>
         </div>
