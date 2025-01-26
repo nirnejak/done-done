@@ -1,21 +1,11 @@
-import { redirect } from "next/navigation"
 import { toast } from "sonner"
 
-const responseErrorHandling = (status: number) => {
-  if (status === 401) {
-    toast("Session expired")
-  } else {
-    toast("Something went wrong")
-  }
-  localStorage.clear()
-  redirect("/")
-}
-
-const resetAndRedirect = (error: any) => {
+const handleError = (message: string, error?: any) => {
+  toast(message)
   console.error(error)
-  toast("Something went wrong")
+
   localStorage.clear()
-  redirect("/")
+  window.location.reload()
 }
 
 export const getTodos = async (token: string) => {
@@ -28,10 +18,12 @@ export const getTodos = async (token: string) => {
       const data = await response.json()
       return data
     } else {
-      responseErrorHandling(response.status)
+      if (response.status === 401) {
+        handleError("Session expired")
+      }
     }
   } catch (error) {
-    resetAndRedirect(error)
+    handleError("Something went wrong", error)
   }
 }
 
@@ -51,10 +43,12 @@ export const addTodo = async (
       const data = await response.json()
       return data
     } else {
-      responseErrorHandling(response.status)
+      if (response.status === 401) {
+        handleError("Session expired")
+      }
     }
   } catch (error) {
-    resetAndRedirect(error)
+    handleError("Something went wrong", error)
   }
 }
 
@@ -76,10 +70,12 @@ export const updateTodo = async (
       const data = await response.json()
       return data
     } else {
-      responseErrorHandling(response.status)
+      if (response.status === 401) {
+        handleError("Session expired")
+      }
     }
   } catch (error) {
-    resetAndRedirect(error)
+    handleError("Something went wrong", error)
   }
 }
 
@@ -98,10 +94,12 @@ export const toggleTodo = async (
       const data = await response.json()
       return data
     } else {
-      responseErrorHandling(response.status)
+      if (response.status === 401) {
+        handleError("Session expired")
+      }
     }
   } catch (error) {
-    resetAndRedirect(error)
+    handleError("Something went wrong", error)
   }
 }
 
@@ -116,9 +114,11 @@ export const removeTodo = async (token: string, id: number) => {
       const data = await response.json()
       return data
     } else {
-      responseErrorHandling(response.status)
+      if (response.status === 401) {
+        handleError("Session expired")
+      }
     }
   } catch (error) {
-    resetAndRedirect(error)
+    handleError("Something went wrong", error)
   }
 }
