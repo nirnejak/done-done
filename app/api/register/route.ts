@@ -25,7 +25,7 @@ export async function POST(request: Request) {
     const newUser = await db
       .insert(users)
       .values({ name, email, password: hashedPassword })
-      .$returningId()
+      .returning()
 
     const id = newUser[0].id
     const token = generateToken(id)
@@ -36,7 +36,7 @@ export async function POST(request: Request) {
   } catch (error: any) {
     if (
       typeof error.message === "string" &&
-      error.message.includes("Duplicate entry")
+      error.message.includes("duplicate key value")
     ) {
       return NextResponse.json(
         { error: "Email already in use" },

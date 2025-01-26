@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 
 import jwt from "jsonwebtoken"
-import { and } from "drizzle-orm"
+import { and, eq } from "drizzle-orm"
 
 import { db } from "@/drizzle.config"
 
@@ -30,14 +30,14 @@ export async function GET(request: NextRequest) {
     const allTodos = await db
       .select()
       .from(todos)
-      .where({ user_id: userId } as any)
+      .where((todos) => eq(todos.userId, userId))
 
     return NextResponse.json(
       allTodos.map((todo) => ({
         id: todo.id,
         title: todo.title,
         description: todo.description,
-        dueDate: todo.dueDate?.toISOString().replace(/T.*/, ""),
+        dueDate: todo.dueDate,
         isCompleted: todo.isCompleted,
       }))
     )
@@ -68,7 +68,7 @@ export async function POST(request: NextRequest) {
     const newTodo = await db
       .insert(todos)
       .values(fields as any)
-      .$returningId()
+      .returning()
     return NextResponse.json({
       id: newTodo[0].id,
       title,
@@ -95,7 +95,10 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ error: "ID is required" }, { status: 400 })
     }
 
-    await db.delete(todos).where(and({ id } as any, { user_id: userId } as any))
+    await db
+      .delete(todos)
+      .where(and(eq(todos.id, id), eq(todos.userId, userId)))
+
     return NextResponse.json({ success: true })
   } catch (error) {
     console.log(error)
@@ -125,7 +128,7 @@ export async function PUT(request: NextRequest) {
     await db
       .update(todos)
       .set(fields)
-      .where(and({ id } as any, { user_id: userId } as any))
+      .where(and(eq(todos.id, id), eq(todos.userId, userId)))
 
     return NextResponse.json({ id, title, description, dueDate, isCompleted })
   } catch (error) {
