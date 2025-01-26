@@ -12,6 +12,19 @@ For backend and database setup please refer to [BACKEND.md](https://github.com/n
 
 ---
 
+## Tech Stack
+
+1. **React and Next.js** - Frontend
+2. **Next.js API Route** - for Backend APIs
+3. **TailwindCSS** - Styling
+4. **Motion (prev Framer Motion)** - For animation and interactions
+5. **use-sound** - for adding sound effects
+6. **Vitest** - Testing
+7. **PostgreSQL** - Deployed on NeonDB, Migrated from MySQL
+8. **Drizzle ORM**
+
+---
+
 ## Available Scripts
 
 **Install Dependencies**
