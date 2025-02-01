@@ -40,7 +40,14 @@ const RootLayout: React.FC<Props> = ({ children }) => {
   return (
     <ViewTransitions>
       <html lang="en" className={sansFont.variable}>
-        <head>{renderSchemaTags()}</head>
+        <head>
+          {renderSchemaTags()}
+          <script
+            defer
+            data-domain="done-done-beta.vercel.app"
+            src="https://plausible.io/js/script.js"
+          />
+        </head>
 
         <body className="overflow-x-hidden bg-neutral-50 dark:bg-neutral-900 font-sans">
           <AuthProvider>{children}</AuthProvider>
