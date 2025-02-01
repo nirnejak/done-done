@@ -108,9 +108,11 @@ const AddTask: React.FC = () => {
               </motion.div>
             )}
             <button
+              type="submit"
+              disabled={isAdding}
               onClick={(e) => e.stopPropagation()}
               className={classNames(
-                "flex items-center gap-1 rounded-xl pl-3 pr-2.5 py-1.5 text-xs shadow-heavy outline-hidden transition-colors dark:shadow-md",
+                "flex items-center gap-1 rounded-xl pl-3 pr-2.5 py-1.5 text-xs shadow-heavy outline-hidden transition-colors dark:shadow-md disabled:opacity-80",
                 "bg-neutral-600 text-neutral-100 hover:bg-neutral-700 focus:bg-neutral-700",
                 "dark:bg-neutral-300 dark:text-neutral-900 dark:hover:bg-neutral-200 dark:focus:bg-neutral-200"
               )}
