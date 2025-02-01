@@ -122,7 +122,8 @@ const AuthForm: React.FC = () => {
 
             <button
               type="submit"
-              className="mt-2 flex items-center justify-center gap-2 rounded-lg bg-neutral-800 px-5 py-2 text-sm capitalize text-neutral-50 transition-all hover:bg-neutral-900 focus:bg-neutral-900 focus:outline-hidden active:scale-95 dark:bg-neutral-300 dark:text-neutral-900 dark:hover:bg-neutral-200 dark:focus:bg-neutral-200"
+              disabled={isLoading}
+              className="mt-2 flex items-center justify-center gap-2 rounded-lg bg-neutral-800 disabled:opacity-80 px-5 py-2 text-sm capitalize text-neutral-50 transition-all hover:bg-neutral-900 focus:bg-neutral-900 focus:outline-hidden active:scale-95 dark:bg-neutral-300 dark:text-neutral-900 dark:hover:bg-neutral-200 dark:focus:bg-neutral-200"
             >
               {authState}
               {isLoading && (
