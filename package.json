@@ -25,7 +25,7 @@
     "dotenv": "^16.4.7",
     "drizzle-orm": "^0.39.3",
     "jsonwebtoken": "^9.0.2",
-    "motion": "^12.4.2",
+    "motion": "^12.4.4",
     "next": "^15.1.7",
     "next-view-transitions": "^0.3.4",
     "react": "^19.0.0",
@@ -37,13 +37,13 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",
     "@eslint/js": "^9.20.0",
-    "@tailwindcss/postcss": "^4.0.6",
+    "@tailwindcss/postcss": "^4.0.7",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/react": "^16.2.0",
     "@types/bcryptjs": "^2.4.6",
     "@types/jsonwebtoken": "^9.0.8",
-    "@types/node": "^22.13.2",
-    "@types/react": "^19.0.8",
+    "@types/node": "^22.13.4",
+    "@types/react": "^19.0.10",
     "@vitejs/plugin-react": "^4.3.4",
     "drizzle-kit": "^0.30.4",
     "eslint": "^9.20.1",
@@ -63,11 +63,11 @@
     "postcss": "^8.5.2",
     "prettier": "^3.5.1",
     "prettier-plugin-tailwindcss": "^0.6.11",
-    "tailwindcss": "^4.0.6",
+    "tailwindcss": "^4.0.7",
     "typescript": "^5.7.3",
-    "typescript-eslint": "^8.24.0",
+    "typescript-eslint": "^8.24.1",
     "vite-tsconfig-paths": "^5.1.4",
-    "vitest": "^3.0.5"
+    "vitest": "^3.0.6"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": "eslint"
