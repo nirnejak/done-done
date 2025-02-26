@@ -25,6 +25,10 @@ For backend and database setup please refer to [BACKEND.md](https://github.com/n
 
 ---
 
+## Environment Setup
+
+Please create an `.env` file from `.env.example`, add NeonDB database connection URL and JWT secret.
+
 ## Available Scripts
 
 **Install Dependencies**
