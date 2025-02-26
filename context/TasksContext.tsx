@@ -146,7 +146,7 @@ const TasksProvider: React.FC<Props> = ({ children }) => {
 
     if (data.success) {
       toast.success("Task removed successfully", {
-        icon: <TrashBin size={16} />,
+        icon: <TrashBin size={16} className="text-red-600" />,
       })
     }
   }
