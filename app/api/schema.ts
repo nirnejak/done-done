@@ -8,12 +8,12 @@ import {
   boolean,
 } from "drizzle-orm/pg-core"
 
-export const users = pgTable("users", {
-  id: serial("id").primaryKey(),
-  name: varchar("name", { length: 255 }).notNull(),
-  email: varchar("email", { length: 255 }).notNull(),
-  password: text("password").notNull(),
-})
+export const users = pgTable("users", (u) => ({
+  id: u.serial("id").primaryKey(),
+  name: u.varchar("name", { length: 255 }).notNull(),
+  email: u.varchar("email", { length: 255 }).notNull(),
+  password: u.text("password").notNull(),
+}))
 
 export const todos = pgTable("todos", {
   id: serial("id").primaryKey(),

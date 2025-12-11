@@ -34,7 +34,7 @@ const TaskRow: React.FC<Props> = ({
   const y = useMotionValue(0)
   const dragControls = useDragControls()
 
-  const style = { y }
+  const style = { y } as unknown as React.CSSProperties
 
   return (
     <Reorder.Item value={task} dragListener={false} dragControls={dragControls}>
