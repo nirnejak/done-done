@@ -18,14 +18,32 @@ const Tasks: React.FC = () => {
   }, [user.token])
 
   return (
-    <section className="mx-auto mt-32 w-full px-5 md:px-0 md:w-[500px] md:mt-40">
-      <div className="mb-3 flex justify-between items-center">
-        <h1 className=" font-semibold text-neutral-700 dark:text-neutral-200">
+    <section
+      className="
+        mx-auto mt-32 w-full px-5
+        md:mt-40 md:w-[500px] md:px-0
+      "
+    >
+      <div className="mb-3 flex items-center justify-between">
+        <h1
+          className="
+            font-semibold text-neutral-700
+            dark:text-neutral-200
+          "
+        >
           Hi {user.name} ;)
         </h1>
         <button
           onClick={() => logoutUser()}
-          className="text-xs px-3 transition-colors py-1.5 flex gap-1 items-center rounded-xl hover:bg-neutral-200 focus:bg-neutral-200 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800 outline-hidden dark:text-neutral-200"
+          className="
+            flex items-center gap-1 rounded-xl px-3 py-1.5 text-xs
+            outline-hidden transition-colors
+            hover:bg-neutral-200
+            focus:bg-neutral-200
+            dark:text-neutral-200
+            dark:hover:bg-neutral-800
+            dark:focus:bg-neutral-800
+          "
         >
           <SignOut size={12} />
           <span>Logout</span>

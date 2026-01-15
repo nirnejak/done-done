@@ -49,7 +49,7 @@ const TaskRow: React.FC<Props> = ({
           role="button"
           tabIndex={0}
           onKeyDown={(e) => {
-            e.key === "Enter" && toggleTask(task.id)
+            if (e.key === "Enter") toggleTask(task.id)
           }}
           onClick={(e) => {
             e.stopPropagation()
@@ -74,7 +74,7 @@ const TaskRow: React.FC<Props> = ({
           )}
           <label
             htmlFor={"task-" + task.id}
-            className="ml-1 font-medium cursor-pointer"
+            className="ml-1 cursor-pointer font-medium"
           >
             {task.title}
           </label>
@@ -90,9 +90,21 @@ const TaskRow: React.FC<Props> = ({
               Due {fromNow(new Date(task.dueDate))}
             </div>
           )}
-          <div className="hidden group-hover:flex group-focus:flex">
+          <div
+            className="
+              hidden
+              group-hover:flex
+              group-focus:flex
+            "
+          >
             <button
-              className="rounded-sm p-1 text-neutral-400 transition-colors hover:bg-neutral-200 hover:text-neutral-600 focus:bg-neutral-200 focus:text-neutral-600 dark:hover:bg-neutral-900 dark:focus:bg-neutral-900"
+              className="
+                rounded-sm p-1 text-neutral-400 transition-colors
+                hover:bg-neutral-200 hover:text-neutral-600
+                focus:bg-neutral-200 focus:text-neutral-600
+                dark:hover:bg-neutral-900
+                dark:focus:bg-neutral-900
+              "
               onClick={(e) => {
                 e.stopPropagation()
                 expandTask(task.id)
@@ -101,7 +113,13 @@ const TaskRow: React.FC<Props> = ({
               <Enlarge size={17} />
             </button>
             <button
-              className="rounded-sm p-1 text-neutral-400 transition-colors hover:bg-neutral-200 hover:text-neutral-600 focus:bg-neutral-200 focus:text-neutral-600 dark:hover:bg-neutral-900 dark:focus:bg-neutral-900"
+              className="
+                rounded-sm p-1 text-neutral-400 transition-colors
+                hover:bg-neutral-200 hover:text-neutral-600
+                focus:bg-neutral-200 focus:text-neutral-600
+                dark:hover:bg-neutral-900
+                dark:focus:bg-neutral-900
+              "
               onClick={(e) => {
                 e.stopPropagation()
                 editTask(task.id)
@@ -110,7 +128,13 @@ const TaskRow: React.FC<Props> = ({
               <Pencil size={17} />
             </button>
             <button
-              className="rounded-sm p-1 text-red-400 transition-colors hover:bg-red-100 hover:text-red-500 focus:bg-red-100 focus:text-red-500 dark:hover:bg-neutral-900 dark:focus:bg-red-600/20"
+              className="
+                rounded-sm p-1 text-red-400 transition-colors
+                hover:bg-red-100 hover:text-red-500
+                focus:bg-red-100 focus:text-red-500
+                dark:hover:bg-neutral-900
+                dark:focus:bg-red-600/20
+              "
               onClick={(e) => {
                 e.stopPropagation()
                 deleteTask(task.id)

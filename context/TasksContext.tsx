@@ -95,6 +95,7 @@ const TasksProvider: React.FC<Props> = ({ children }) => {
             localStorage.setItem(LOCAL_STORAGE_FIELD, JSON.stringify(data))
           }
         } catch (error) {
+          console.log(error)
           setTasks(data)
           localStorage.setItem(LOCAL_STORAGE_FIELD, JSON.stringify(data))
         }

@@ -50,7 +50,12 @@ const AddTask: React.FC = () => {
         animate={{ height: height + 16 }} // added 16px for the padding
         onSubmit={handleFormSubmit}
         onClick={() => setIsFocused(true)}
-        className="group relative mb-8 md:mb-12 flex flex-col items-center rounded-3xl bg-neutral-200 p-2 shadow-heavy dark:bg-neutral-800 dark:shadow-md"
+        className="
+          group relative mb-8 flex flex-col items-center rounded-3xl
+          bg-neutral-200 p-2 shadow-heavy
+          md:mb-12
+          dark:bg-neutral-800 dark:shadow-md
+        "
       >
         <div ref={ref} className="w-full">
           <input
@@ -88,13 +93,20 @@ const AddTask: React.FC = () => {
               />
             )}
           </AnimatePresence>
-          <div className="absolute bottom-3.5 right-3.5 z-5 flex items-center gap-1.5">
+          <div
+            className="
+              absolute right-3.5 bottom-3.5 z-5 flex items-center gap-1.5
+            "
+          >
             {isFocused && (
               <motion.div
                 transition={BASE_TRANSITION}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="text-xs bg-neutral-200 pl-3 pr-2.5 py-1.5 rounded-xl dark:bg-neutral-800 dark:text-neutral-200"
+                className="
+                  rounded-xl bg-neutral-200 py-1.5 pr-2.5 pl-3 text-xs
+                  dark:bg-neutral-800 dark:text-neutral-200
+                "
               >
                 <span className="mr-1 font-medium">Due:</span>
                 <input
@@ -103,7 +115,7 @@ const AddTask: React.FC = () => {
                   onChange={(e) => {
                     setDueDate(e.target.value)
                   }}
-                  className="text-xs w-[96px] outline-hidden"
+                  className="w-[96px] text-xs outline-hidden"
                 />
               </motion.div>
             )}

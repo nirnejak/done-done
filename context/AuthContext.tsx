@@ -3,7 +3,6 @@ import * as React from "react"
 
 import { SignOut } from "akar-icons"
 import { toast } from "sonner"
-import { redirect } from "next/navigation"
 
 const initialUser = {
   name: "",

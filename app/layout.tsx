@@ -49,7 +49,12 @@ const RootLayout: React.FC<Props> = ({ children }) => {
           />
         </head>
 
-        <body className="overflow-x-hidden bg-neutral-50 dark:bg-neutral-900 font-sans">
+        <body
+          className="
+            overflow-x-hidden bg-neutral-50 font-sans
+            dark:bg-neutral-900
+          "
+        >
           <AuthProvider>{children}</AuthProvider>
           <ThemeToggle />
           <Toaster position="bottom-right" closeButton />

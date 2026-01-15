@@ -36,8 +36,19 @@ const ThemeToggle: React.FC = () => {
   }, [theme])
 
   return (
-    <div className="fixed right-5 top-5 rounded-full bg-neutral-200 p-2 font-medium shadow-heavy dark:bg-neutral-800 dark:shadow-md">
-      <div className="flex rounded-full bg-neutral-50 p-1 shadow-heavy dark:bg-neutral-900 dark:shadow-md">
+    <div
+      className="
+        fixed top-5 right-5 rounded-full bg-neutral-200 p-2 font-medium
+        shadow-heavy
+        dark:bg-neutral-800 dark:shadow-md
+      "
+    >
+      <div
+        className="
+          flex rounded-full bg-neutral-50 p-1 shadow-heavy
+          dark:bg-neutral-900 dark:shadow-md
+        "
+      >
         <button
           className={classNames(
             "dark:hover:bg-neutral-800 hover:bg-neutral-200 px-2 py-2 rounded-full",

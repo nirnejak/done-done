@@ -33,6 +33,7 @@ export async function POST(request: Request) {
       token,
       user: { id, name, email },
     })
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     if (
       typeof error.message === "string" &&

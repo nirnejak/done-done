@@ -13,9 +13,7 @@ import ExpandModal from "@/components/ExpandModal"
 import EditModal from "@/components/EditModal"
 import DeleteModal from "@/components/DeleteModal"
 
-interface Props {}
-
-const TaskList: React.FC<Props> = () => {
+const TaskList: React.FC = () => {
   const {
     isFetching,
     tasks,
@@ -49,14 +47,24 @@ const TaskList: React.FC<Props> = () => {
     <div>
       <motion.div
         layout
-        className="rounded-3xl bg-neutral-200 p-2 shadow-heavy dark:bg-neutral-800 dark:shadow-md"
+        className="
+          rounded-3xl bg-neutral-200 p-2 shadow-heavy
+          dark:bg-neutral-800 dark:shadow-md
+        "
       >
         <motion.div
           layout
-          className="rounded-2xl bg-neutral-50 px-4 pb-2 pt-4 shadow-heavy dark:bg-neutral-900 dark:shadow-md"
+          className="
+            rounded-2xl bg-neutral-50 px-4 pt-4 pb-2 shadow-heavy
+            dark:bg-neutral-900 dark:shadow-md
+          "
         >
           {isFetching && (
-            <div className="flex items-center flex-col gap-3 my-10 text-neutral-500">
+            <div
+              className="
+                my-10 flex flex-col items-center gap-3 text-neutral-500
+              "
+            >
               <div className="animate-spin">
                 <ArrowClockwise />
               </div>
@@ -64,7 +72,11 @@ const TaskList: React.FC<Props> = () => {
             </div>
           )}
           {tasks.length === 0 && isFetching === false && (
-            <div className="flex items-center flex-col gap-3 my-10 text-neutral-500">
+            <div
+              className="
+                my-10 flex flex-col items-center gap-3 text-neutral-500
+              "
+            >
               <div>
                 <Leaf />
               </div>
@@ -77,9 +89,15 @@ const TaskList: React.FC<Props> = () => {
             <div className="mb-2 flex items-center text-neutral-500">
               <p className="text-xs font-medium">Tasks</p>
               <button
-                className="-mr-1 ml-auto rounded-sm p-1 outline-hidden hover:bg-neutral-200/50 focus:bg-neutral-200/50 dark:hover:bg-neutral-200/10 dark:focus:bg-neutral-200/10"
+                className="
+                  -mr-1 ml-auto rounded-sm p-1 outline-hidden
+                  hover:bg-neutral-200/50
+                  focus:bg-neutral-200/50
+                  dark:hover:bg-neutral-200/10
+                  dark:focus:bg-neutral-200/10
+                "
                 onKeyDown={(e) => {
-                  e.key === "Enter" && sortTasksAlphabetically()
+                  if (e.key === "Enter") sortTasksAlphabetically()
                 }}
                 onClick={() => {
                   sortTasksAlphabetically()
@@ -90,7 +108,7 @@ const TaskList: React.FC<Props> = () => {
             </div>
           )}
 
-          <div className="flex w-full select-none flex-col">
+          <div className="flex w-full flex-col select-none">
             <Reorder.Group axis="y" values={tasks} onReorder={reorderTasks}>
               {tasks.map((task) => (
                 <TaskRow

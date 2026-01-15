@@ -85,17 +85,35 @@ const EditModal: React.FC<Props> = ({ task, closeModal }) => {
             className="text-sm outline-hidden"
           />
         </label>
-        <div className="flex gap-2 mt-2">
+        <div className="mt-2 flex gap-2">
           <button
             type="button"
             onClick={closeModal}
-            className="flex-1 rounded-lg bg-neutral-300 px-5 py-2 text-sm text-neutral-800 transition-all hover:bg-neutral-400 focus:bg-neutral-400 focus:outline-hidden active:scale-95 dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-600 dark:focus:bg-neutral-600"
+            className="
+              flex-1 rounded-lg bg-neutral-300 px-5 py-2 text-sm
+              text-neutral-800 transition-all
+              hover:bg-neutral-400
+              focus:bg-neutral-400 focus:outline-hidden
+              active:scale-95
+              dark:bg-neutral-700 dark:text-neutral-300
+              dark:hover:bg-neutral-600
+              dark:focus:bg-neutral-600
+            "
           >
             Cancel
           </button>
           <button
             type="submit"
-            className="flex-1 rounded-lg bg-neutral-800 px-5 py-2 text-sm text-neutral-50 transition-all hover:bg-neutral-900 focus:bg-neutral-900 focus:outline-hidden active:scale-95 dark:bg-neutral-300 dark:text-neutral-900 dark:hover:bg-neutral-200 dark:focus:bg-neutral-200"
+            className="
+              flex-1 rounded-lg bg-neutral-800 px-5 py-2 text-sm text-neutral-50
+              transition-all
+              hover:bg-neutral-900
+              focus:bg-neutral-900 focus:outline-hidden
+              active:scale-95
+              dark:bg-neutral-300 dark:text-neutral-900
+              dark:hover:bg-neutral-200
+              dark:focus:bg-neutral-200
+            "
           >
             Update Task
           </button>

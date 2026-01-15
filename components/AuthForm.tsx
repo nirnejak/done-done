@@ -51,14 +51,25 @@ const AuthForm: React.FC = () => {
   return (
     <motion.div
       animate={{ height: height + 92 }}
-      className="w-[320px] overflow-hidden rounded-3xl bg-neutral-200 p-2 shadow-heavy dark:bg-neutral-800 dark:shadow-md"
+      className="
+        w-[320px] overflow-hidden rounded-3xl bg-neutral-200 p-2 shadow-heavy
+        dark:bg-neutral-800 dark:shadow-md
+      "
     >
       <motion.div
         animate={{ height: height + 40 }}
-        className="overflow-hidden rounded-2xl bg-neutral-50 p-5 shadow-heavy dark:bg-neutral-900 dark:shadow-md"
+        className="
+          overflow-hidden rounded-2xl bg-neutral-50 p-5 shadow-heavy
+          dark:bg-neutral-900 dark:shadow-md
+        "
       >
         <div ref={ref}>
-          <h1 className="mb-1 text-xl font-semibold capitalize text-neutral-800 dark:text-neutral-200">
+          <h1
+            className="
+              mb-1 text-xl font-semibold text-neutral-800 capitalize
+              dark:text-neutral-200
+            "
+          >
             {authState}
           </h1>
           <p className="mb-6 text-sm text-neutral-500">
@@ -131,7 +142,18 @@ const AuthForm: React.FC = () => {
               layout="position"
               type="submit"
               disabled={isLoading}
-              className="mt-2 flex items-center justify-center gap-2 rounded-lg bg-neutral-800 disabled:opacity-80 px-5 py-2 text-sm capitalize text-neutral-50 transition-all hover:bg-neutral-900 focus:bg-neutral-900 focus:outline-hidden active:scale-95 dark:bg-neutral-300 dark:text-neutral-900 dark:hover:bg-neutral-200 dark:focus:bg-neutral-200"
+              className="
+                mt-2 flex items-center justify-center gap-2 rounded-lg
+                bg-neutral-800 px-5 py-2 text-sm text-neutral-50 capitalize
+                transition-all
+                hover:bg-neutral-900
+                focus:bg-neutral-900 focus:outline-hidden
+                active:scale-95
+                disabled:opacity-80
+                dark:bg-neutral-300 dark:text-neutral-900
+                dark:hover:bg-neutral-200
+                dark:focus:bg-neutral-200
+              "
             >
               {authState}
               {isLoading && (
@@ -141,7 +163,12 @@ const AuthForm: React.FC = () => {
           </motion.form>
         </div>
       </motion.div>
-      <p className="mb-1 mt-3 text-center text-sm text-neutral-500 dark:text-neutral-400">
+      <p
+        className="
+          mt-3 mb-1 text-center text-sm text-neutral-500
+          dark:text-neutral-400
+        "
+      >
         {authState === "register" ? (
           <span>
             Already have an account?{" "}
@@ -149,7 +176,12 @@ const AuthForm: React.FC = () => {
               onClick={() => {
                 setAuthState("login")
               }}
-              className="font-medium text-neutral-700 underline-offset-2 outline-hidden hover:underline focus:underline dark:text-neutral-300"
+              className="
+                font-medium text-neutral-700 underline-offset-2 outline-hidden
+                hover:underline
+                focus:underline
+                dark:text-neutral-300
+              "
             >
               Login
             </button>
@@ -161,7 +193,12 @@ const AuthForm: React.FC = () => {
               onClick={() => {
                 setAuthState("register")
               }}
-              className="font-medium text-neutral-700 underline-offset-2 outline-hidden hover:underline focus:underline dark:text-neutral-300"
+              className="
+                font-medium text-neutral-700 underline-offset-2 outline-hidden
+                hover:underline
+                focus:underline
+                dark:text-neutral-300
+              "
             >
               Register
             </button>

@@ -7,6 +7,7 @@ import { db } from "@/drizzle.config"
 
 import { todos } from "@/app/api/schema"
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const errorHandler = (error: any, defaultMessage: string) => {
   if (
     error instanceof jwt.JsonWebTokenError ||
@@ -60,6 +61,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Title is required" }, { status: 400 })
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let fields: Record<string, any> = { title, userId, description }
     if (dueDate) {
       fields = { ...fields, dueDate }
@@ -67,6 +69,7 @@ export async function POST(request: NextRequest) {
 
     const newTodo = await db
       .insert(todos)
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       .values(fields as any)
       .returning()
     return NextResponse.json({
@@ -120,6 +123,7 @@ export async function PUT(request: NextRequest) {
       return NextResponse.json({ error: "ID is required" }, { status: 400 })
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let fields: Record<string, any> = { title, description, isCompleted }
     if (dueDate) {
       fields = { ...fields, dueDate }

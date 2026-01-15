@@ -31,14 +31,29 @@ const DeleteModal: React.FC<Props> = ({ taskId, closeModal }) => {
       <div className="flex gap-2">
         <button
           onClick={closeModal}
-          className="rounded-lg flex-1 bg-neutral-800 px-5 py-2 text-sm text-neutral-50 transition-all hover:bg-neutral-900 focus:bg-neutral-900 focus:outline-hidden active:scale-95 dark:bg-neutral-300 dark:text-neutral-900 dark:hover:bg-neutral-200 dark:focus:bg-neutral-200"
+          className="
+            flex-1 rounded-lg bg-neutral-800 px-5 py-2 text-sm text-neutral-50
+            transition-all
+            hover:bg-neutral-900
+            focus:bg-neutral-900 focus:outline-hidden
+            active:scale-95
+            dark:bg-neutral-300 dark:text-neutral-900
+            dark:hover:bg-neutral-200
+            dark:focus:bg-neutral-200
+          "
         >
           Cancel
         </button>
         <button
           ref={ref}
           onClick={deleteTask}
-          className="rounded-lg flex-1 bg-red-800 px-5 py-2 text-sm text-neutral-50 transition-all hover:bg-red-900 focus:bg-red-900 focus:outline-hidden active:scale-95"
+          className="
+            flex-1 rounded-lg bg-red-800 px-5 py-2 text-sm text-neutral-50
+            transition-all
+            hover:bg-red-900
+            focus:bg-red-900 focus:outline-hidden
+            active:scale-95
+          "
         >
           Delete Task
         </button>
