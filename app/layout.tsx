@@ -10,7 +10,7 @@ import { renderSchemaTags } from "@/utils/schema"
 import AuthProvider from "@/context/AuthContext"
 import ThemeToggle from "@/components/ThemeToggle"
 
-import "../styles/main.css"
+import "./main.css"
 
 const sansFont = localFont({
   variable: "--sans-font",
