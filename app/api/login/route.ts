@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server"
 import { eq } from "drizzle-orm"
 
-import { db } from "@/lib/db"
+import { db } from "@/utils/db"
 import { users } from "@/app/api/schema"
 import { comparePassword, generateToken } from "@/utils/auth"
 
