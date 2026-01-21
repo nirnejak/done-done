@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server"
 
-import { db } from "@/drizzle.config"
+import { db } from "@/lib/db"
 import { users } from "@/app/api/schema"
 import { encryptPassword, generateToken } from "@/utils/auth"
 

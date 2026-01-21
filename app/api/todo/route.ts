@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server"
 import jwt from "jsonwebtoken"
 import { and, eq } from "drizzle-orm"
 
-import { db } from "@/drizzle.config"
+import { db } from "@/lib/db"
 
 import { todos } from "@/app/api/schema"
 
