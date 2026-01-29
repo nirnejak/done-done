@@ -15,6 +15,13 @@ Guidelines and commands for agentic coding agents working in this Done Done repo
 - `bun run format:check` - Check if files are formatted correctly
 - `bun run type-check` - Run TypeScript type checking
 
+### Testing Commands (Vitest)
+
+- `bun run test` - Run all tests
+- `bun run test -- __tests__/page.test.tsx` - Run single test file
+- `bun run test -- --watch` - Run tests in watch mode
+- `bun run test -- --coverage` - Run tests with coverage
+
 ### Database Commands (Drizzle ORM)
 
 - `bun run db:generate` - Generate migrations from schema changes
@@ -22,48 +29,56 @@ Guidelines and commands for agentic coding agents working in this Done Done repo
 - `bun run db:push` - Push schema changes directly to database (development only)
 - `bun run db:studio` - Open Drizzle Studio for database management
 
-### Testing Commands
-
-**Note**: No testing framework configured. To add Vitest:
-
-```bash
-bun add -D vitest @testing-library/react @testing-library/jest-dom jsdom
-```
-
-Once configured, use:
-
-- `bun run test` - Run all tests
-- `bun run test:watch` - Run tests in watch mode
-- `bun run test:coverage` - Run tests with coverage
-- `bun run test -- path/to/test.spec.ts` - Run single test file
-
 ## Code Style Guidelines
 
 ### File Structure
 
 ```
 app/                    # Next.js App Router (pages, API routes, layouts)
-├── admin/              # Admin pages
-├── api/                # API routes (auth, schema, waitlist)
-├── auth/               # Authentication pages
-├── blog/               # Blog/MDX content
-├── main.css            # Global CSS with Tailwind v4 and custom animations
-└── layout.tsx          # Root layout with font loading and theme setup
-components/             # React components (organized by atomic design)
-├── atoms/              # Basic UI components (Button, etc.)
+├── api/                # API routes (auth, todo)
+├── page.tsx            # Home page
+├── layout.tsx          # Root layout with fonts and providers
+└── main.css            # Global CSS with Tailwind v4
+components/             # React components
+├── atoms/              # Basic UI components (Modal)
+├── TaskList.tsx        # Task list component
+├── TaskRow.tsx         # Individual task row
+├── AddTask.tsx         # Add task form
+├── EditModal.tsx       # Edit task modal
+├── DeleteModal.tsx     # Delete confirmation modal
+├── ExpandModal.tsx     # Task detail modal
+├── AuthForm.tsx        # Authentication form
+├── Tasks.tsx           # Tasks container
+└── ThemeToggle.tsx     # Theme toggle button
 hooks/                  # Custom React hooks
-utils/                  # Utility functions (classNames, db, schema)
-@types/                 # TypeScript type definitions
-public/                 # Static assets
+├── useTheme.tsx
+├── useModal.tsx
+├── useClickOutside.tsx
+└── useDynamicHeight.tsx
+context/                # React context providers
+├── AuthContext.tsx
+utils/                  # Utility functions
+├── classNames.ts       # CSS class merging
+├── animation.ts        # Animation constants
+├── datetime.ts         # Date/time utilities
+├── auth.ts             # Auth helpers
+├── metadata.ts         # SEO metadata
+└── schema.tsx          # JSON-LD schema tags
+db/                     # Database schema and connection
+├── schema.ts           # Drizzle schema definitions
+└── index.ts            # Database connection
+__tests__/              # Test files
+├── page.test.tsx
+└── tasks.test.tsx
 ```
 
 ### Import Patterns
 
 ```typescript
 import * as React from "react"
-import { cva, type VariantProps } from "class-variance-authority"
+import { motion } from "motion/react"
 import classNames from "@/utils/classNames"
-import * as motion from "motion/react-client"
+import { db } from "@/db"
 ```
 
 - Use `import * as React from "react"` (namespace imports)
@@ -74,32 +89,33 @@ import * as motion from "motion/react-client"
 ### Component Patterns
 
 ```typescript
-export interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-  VariantProps<typeof buttonVariants> {
-  asChild?: boolean
+interface Props {
+  title: string
+  children: React.ReactNode
+  closeModal: () => void
 }
 
-const Button: React.FC<Props> = ({ children, className, variant, size, ...props }) => (
-  <button className={classNames(buttonVariants({ variant, size }), className)} {...props}>
-    {children}
-  </button>
-)
+const Modal: React.FC<Props> = ({ title, children, closeModal }) => {
+  return (
+    // Component JSX
+  )
+}
 
-export default Button
+export default Modal
 ```
 
 - Use functional components with `React.FC<Props>`
-- Props extend HTML attributes and VariantProps from CVA
 - Export interface as `Props`, component as default export
 - Use `classNames` utility for conditional styling
+- Add `"use client"` directive for client components
 
 ### Naming Conventions
 
-- **Components**: PascalCase (`Button`, `UserCard`)
+- **Components**: PascalCase (`Modal`, `TaskList`)
 - **Hooks**: camelCase with `use` prefix (`useTheme`)
-- **Variables**: camelCase (`buttonVariants`)
-- **Constants**: UPPER_SNAKE_CASE (`BASE_URL`)
-- **Types**: PascalCase (`Props`, `ApiResponse<T>`)
+- **Variables**: camelCase (`closeModal`)
+- **Constants**: UPPER_SNAKE_CASE (`BASE_TRANSITION`)
+- **Types**: PascalCase (`Props`)
 - **Files**: PascalCase for components, camelCase for utilities
 - **Database**: snake_case for table/column names
 
@@ -107,52 +123,43 @@ export default Button
 
 - Strict mode enabled (`strict: true`, `strictNullChecks: true`)
 - Use `interface` for object shapes and component props
-- Use `type` for unions and complex type expressions
 - Use path mapping with `@/*` for absolute imports
-- Include return type annotations for hook functions
 
 ### Database Patterns
 
 ```typescript
-export const user = pgTable("user", {
-  id: text("id").primaryKey(),
-  email: text("email").notNull().unique(),
-  updatedAt: timestamp("updated_at")
-    .$onUpdate(() => new Date())
-    .notNull(),
+export const todos = pgTable("todos", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").references(() => users.id),
+  title: varchar("title", { length: 255 }).notNull(),
+  isCompleted: boolean("is_completed").default(false),
 })
 ```
 
 - Schema-first with Drizzle ORM and Neon PostgreSQL
-- Use foreign keys with cascade delete
-- Implement `$onUpdate` for automatic timestamps
+- Use foreign keys with proper references
 
-### Error Handling
+### API Route Error Handling
 
 ```typescript
-export async function POST(request: Request) {
-  try {
-    return NextResponse.json({ message: "Success!" }, { status: 200 })
-  } catch (error) {
-    console.error("Error processing request:", error)
-    return NextResponse.json(
-      { error: "Failed to process request" },
-      { status: 400 }
-    )
+const errorHandler = (error: any, defaultMessage: string) => {
+  if (error instanceof jwt.JsonWebTokenError) {
+    return NextResponse.json({ error: "Invalid Token" }, { status: 401 })
   }
+  return NextResponse.json({ error: defaultMessage }, { status: 500 })
 }
 ```
 
-- API routes: Try-catch with `NextResponse.json()`
-- Use `console.error` for logging, never expose sensitive data
-- Use proper HTTP status codes (200, 400, 500)
+- Use try-catch blocks in API routes
+- Return `NextResponse.json()` with proper status codes
+- Use `console.log(error)` for debugging
+- Handle JWT errors with 401 status
 
 ### Styling Guidelines
 
 - Tailwind CSS v4 with `@theme` directives in `app/main.css`
-- Custom animations using `@keyframes` and `--animate-*` variables
-- Use CSS custom properties (`--sans-font`, `--mono-font`)
 - Use `dark:` prefix for dark mode variants
+- Use custom Tailwind classes (e.g., `shadow-heavy`, `backdrop-blur-xs`)
 - Include `antialiased` for text quality
 
 ## Quality Assurance
@@ -166,11 +173,11 @@ Always run before completing work:
 
 ## Project Features
 
-- Next.js 15+ with App Router, React 19, React Compiler
-- MDX Support, View Transitions
-- Better Auth (session, account, verification tables)
+- Next.js 16+ with App Router, React 19
 - Drizzle ORM with PostgreSQL (Neon)
+- JWT authentication
 - Tailwind CSS v4 with custom animations
 - Framer Motion for animations
+- Vitest for testing
 - Bun package manager
-- Husky pre-commit hooks with lint-staged
+- Husky pre-commit hooks
