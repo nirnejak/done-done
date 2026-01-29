@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server"
 
-import { db } from "@/utils/db"
-import { users } from "@/app/api/schema"
+import { db } from "@/db"
+import { users } from "@/db/schema"
 import { encryptPassword, generateToken } from "@/utils/auth"
 
 export async function POST(request: Request) {

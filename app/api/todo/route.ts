@@ -3,9 +3,9 @@ import { NextRequest, NextResponse } from "next/server"
 import jwt from "jsonwebtoken"
 import { and, eq } from "drizzle-orm"
 
-import { db } from "@/utils/db"
+import { db } from "@/db"
 
-import { todos } from "@/app/api/schema"
+import { todos } from "@/db/schema"
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const errorHandler = (error: any, defaultMessage: string) => {

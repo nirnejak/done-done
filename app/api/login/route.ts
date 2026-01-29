@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server"
 import { eq } from "drizzle-orm"
 
-import { db } from "@/utils/db"
-import { users } from "@/app/api/schema"
+import { db } from "@/db"
+import { users } from "@/db/schema"
 import { comparePassword, generateToken } from "@/utils/auth"
 
 export async function POST(request: Request) {
