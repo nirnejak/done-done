@@ -1,7 +1,7 @@
 "use client"
-import * as React from "react"
 
 import { SignOut } from "akar-icons"
+import * as React from "react"
 import { toast } from "sonner"
 
 const initialUser = {

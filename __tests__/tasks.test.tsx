@@ -1,9 +1,9 @@
-import { beforeAll, expect, test, vi } from "vitest"
 import { render, screen } from "@testing-library/react"
+import { beforeAll, expect, test, vi } from "vitest"
 
 import TasksPage from "@/app/tasks/page"
 import AuthProvider from "@/context/AuthContext"
-import TasksProvider, { TASK } from "@/context/TasksContext"
+import TasksProvider, { type TASK } from "@/context/TasksContext"
 
 // Mock next/navigation
 vi.mock("next/navigation", () => ({

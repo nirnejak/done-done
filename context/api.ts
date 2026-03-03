@@ -1,6 +1,6 @@
 import { toast } from "sonner"
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// biome-ignore lint/suspicious/noExplicitAny: error type is unknown at catch boundary
 const handleError = (message: string, error?: any) => {
   toast(message)
   console.error(error)

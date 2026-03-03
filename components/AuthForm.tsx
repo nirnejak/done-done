@@ -1,14 +1,12 @@
 "use client"
-import * as React from "react"
-import { redirect } from "next/navigation"
-
-import { motion, AnimatePresence } from "motion/react"
 import { ArrowClockwise } from "akar-icons"
-
+import { AnimatePresence, motion } from "motion/react"
+import { redirect } from "next/navigation"
+import * as React from "react"
+import { useAuth } from "@/context/AuthContext"
+import useDynamicHeight from "@/hooks/useDynamicHeight"
 import { BASE_TRANSITION } from "@/utils/animation"
 import classNames from "@/utils/classNames"
-import useDynamicHeight from "@/hooks/useDynamicHeight"
-import { useAuth } from "@/context/AuthContext"
 
 const initialFormState = {
   name: "",
@@ -51,28 +49,17 @@ const AuthForm: React.FC = () => {
   return (
     <motion.div
       animate={{ height: height + 92 }}
-      className="
-        w-[320px] overflow-hidden rounded-3xl bg-neutral-200 p-2 shadow-heavy
-        dark:bg-neutral-800 dark:shadow-md
-      "
+      className="w-[320px] overflow-hidden rounded-3xl bg-neutral-200 p-2 shadow-heavy dark:bg-neutral-800 dark:shadow-md"
     >
       <motion.div
         animate={{ height: height + 40 }}
-        className="
-          overflow-hidden rounded-2xl bg-neutral-50 p-5 shadow-heavy
-          dark:bg-neutral-900 dark:shadow-md
-        "
+        className="overflow-hidden rounded-2xl bg-neutral-50 p-5 shadow-heavy dark:bg-neutral-900 dark:shadow-md"
       >
         <div ref={ref}>
-          <h1
-            className="
-              mb-1 text-xl font-semibold text-neutral-800 capitalize
-              dark:text-neutral-200
-            "
-          >
+          <h1 className="mb-1 font-semibold text-neutral-800 text-xl capitalize dark:text-neutral-200">
             {authState}
           </h1>
-          <p className="mb-6 text-sm text-neutral-500">
+          <p className="mb-6 text-neutral-500 text-sm">
             {authState === "register"
               ? "Enter your details to get started."
               : "Continue where you left off."}
@@ -100,8 +87,8 @@ const AuthForm: React.FC = () => {
                     onChange={handleInputChange}
                     className={classNames(
                       "w-full rounded-lg border px-3 py-2 text-sm outline-hidden",
-                      "bg-neutral-100 focus:border-neutral-400 text-neutral-600 placeholder:text-neutral-400 border-neutral-200",
-                      "dark:bg-neutral-800 dark:focus:border-neutral-700 dark:text-neutral-300 placeholder:text-neutral-500 dark:border-neutral-700"
+                      "border-neutral-200 bg-neutral-100 text-neutral-600 placeholder:text-neutral-400 focus:border-neutral-400",
+                      "placeholder:text-neutral-500 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-300 dark:focus:border-neutral-700"
                     )}
                     required
                   />
@@ -117,8 +104,8 @@ const AuthForm: React.FC = () => {
               onChange={handleInputChange}
               className={classNames(
                 "w-full rounded-lg border px-3 py-2 text-sm outline-hidden",
-                "bg-neutral-100 focus:border-neutral-400 text-neutral-600 placeholder:text-neutral-400 border-neutral-200",
-                "dark:bg-neutral-800 dark:focus:border-neutral-700 dark:text-neutral-300 placeholder:text-neutral-500 dark:border-neutral-700"
+                "border-neutral-200 bg-neutral-100 text-neutral-600 placeholder:text-neutral-400 focus:border-neutral-400",
+                "placeholder:text-neutral-500 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-300 dark:focus:border-neutral-700"
               )}
               required
             />
@@ -131,8 +118,8 @@ const AuthForm: React.FC = () => {
               onChange={handleInputChange}
               className={classNames(
                 "w-full rounded-lg border px-3 py-2 text-sm outline-hidden",
-                "bg-neutral-100 focus:border-neutral-400 text-neutral-600 placeholder:text-neutral-400 border-neutral-200",
-                "dark:bg-neutral-800 dark:focus:border-neutral-700 dark:text-neutral-300 placeholder:text-neutral-500 dark:border-neutral-700"
+                "border-neutral-200 bg-neutral-100 text-neutral-600 placeholder:text-neutral-400 focus:border-neutral-400",
+                "placeholder:text-neutral-500 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-300 dark:focus:border-neutral-700"
               )}
               minLength={8}
               required
@@ -142,18 +129,7 @@ const AuthForm: React.FC = () => {
               layout="position"
               type="submit"
               disabled={isLoading}
-              className="
-                mt-2 flex items-center justify-center gap-2 rounded-lg
-                bg-neutral-800 px-5 py-2 text-sm text-neutral-50 capitalize
-                transition-all
-                hover:bg-neutral-900
-                focus:bg-neutral-900 focus:outline-hidden
-                active:scale-95
-                disabled:opacity-80
-                dark:bg-neutral-300 dark:text-neutral-900
-                dark:hover:bg-neutral-200
-                dark:focus:bg-neutral-200
-              "
+              className="mt-2 flex items-center justify-center gap-2 rounded-lg bg-neutral-800 px-5 py-2 text-neutral-50 text-sm capitalize transition-all hover:bg-neutral-900 focus:bg-neutral-900 focus:outline-hidden active:scale-95 disabled:opacity-80 dark:bg-neutral-300 dark:text-neutral-900 dark:focus:bg-neutral-200 dark:hover:bg-neutral-200"
             >
               {authState}
               {isLoading && (
@@ -163,25 +139,16 @@ const AuthForm: React.FC = () => {
           </motion.form>
         </div>
       </motion.div>
-      <p
-        className="
-          mt-3 mb-1 text-center text-sm text-neutral-500
-          dark:text-neutral-400
-        "
-      >
+      <p className="mt-3 mb-1 text-center text-neutral-500 text-sm dark:text-neutral-400">
         {authState === "register" ? (
           <span>
             Already have an account?{" "}
             <button
+              type="button"
               onClick={() => {
                 setAuthState("login")
               }}
-              className="
-                font-medium text-neutral-700 underline-offset-2 outline-hidden
-                hover:underline
-                focus:underline
-                dark:text-neutral-300
-              "
+              className="font-medium text-neutral-700 underline-offset-2 outline-hidden hover:underline focus:underline dark:text-neutral-300"
             >
               Login
             </button>
@@ -190,15 +157,11 @@ const AuthForm: React.FC = () => {
           <span>
             Don&apos;t have an account?{" "}
             <button
+              type="button"
               onClick={() => {
                 setAuthState("register")
               }}
-              className="
-                font-medium text-neutral-700 underline-offset-2 outline-hidden
-                hover:underline
-                focus:underline
-                dark:text-neutral-300
-              "
+              className="font-medium text-neutral-700 underline-offset-2 outline-hidden hover:underline focus:underline dark:text-neutral-300"
             >
               Register
             </button>

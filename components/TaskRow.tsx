@@ -1,20 +1,18 @@
 "use client"
-import * as React from "react"
 
 import {
-  Pencil,
-  TrashBin,
-  DragVerticalFill,
   Circle,
   CircleCheckFill,
+  DragVerticalFill,
   Enlarge,
+  Pencil,
+  TrashBin,
 } from "akar-icons"
 import { Reorder, useDragControls, useMotionValue } from "motion/react"
-
+import type * as React from "react"
+import type { TASK } from "@/context/TasksContext"
 import classNames from "@/utils/classNames"
 import { fromNow } from "@/utils/datetime"
-
-import type { TASK } from "@/context/TasksContext"
 
 interface Props {
   task: TASK
@@ -41,10 +39,11 @@ const TaskRow: React.FC<Props> = ({
       <div
         className={classNames(
           "group -mx-2 flex items-center rounded-lg p-1 outline-hidden transition-colors",
-          "text-neutral-700 hover:text-neutral-900 focus:text-neutral-900 hover:bg-neutral-200/50 focus:bg-neutral-200/50",
-          "dark:text-neutral-400 dark:hover:text-neutral-200 dark:focus:text-neutral-200 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
+          "text-neutral-700 hover:bg-neutral-200/50 hover:text-neutral-900 focus:bg-neutral-200/50 focus:text-neutral-900",
+          "dark:text-neutral-400 dark:focus:bg-neutral-800 dark:focus:text-neutral-200 dark:hover:bg-neutral-800 dark:hover:text-neutral-200"
         )}
       >
+        {/* biome-ignore lint/a11y/useSemanticElements: div with role="button" used for custom click/toggle behavior with drag reorder support */}
         <div
           role="button"
           tabIndex={0}
@@ -61,7 +60,7 @@ const TaskRow: React.FC<Props> = ({
             tabIndex={-1}
             type="checkbox"
             className="mr-1 hidden accent-neutral-600"
-            id={"task-" + task.id}
+            id={`task-${task.id}`}
             checked={task.isCompleted}
             onChange={() => {
               toggleTask(task.id)
@@ -73,7 +72,7 @@ const TaskRow: React.FC<Props> = ({
             <Circle size={18} />
           )}
           <label
-            htmlFor={"task-" + task.id}
+            htmlFor={`task-${task.id}`}
             className="ml-1 cursor-pointer font-medium"
           >
             {task.title}
@@ -83,28 +82,17 @@ const TaskRow: React.FC<Props> = ({
           {task.dueDate && (
             <div
               className={classNames(
-                task.isCompleted ? " line-through" : "",
-                "text-xs text-neutral-400 group-hover:text-neutral-600 dark:text-neutral-500 dark:group-hover:text-neutral-400"
+                task.isCompleted ? "line-through" : "",
+                "text-neutral-400 text-xs group-hover:text-neutral-600 dark:text-neutral-500 dark:group-hover:text-neutral-400"
               )}
             >
               Due {fromNow(new Date(task.dueDate))}
             </div>
           )}
-          <div
-            className="
-              hidden
-              group-hover:flex
-              group-focus:flex
-            "
-          >
+          <div className="hidden group-hover:flex group-focus:flex">
             <button
-              className="
-                rounded-sm p-1 text-neutral-400 transition-colors
-                hover:bg-neutral-200 hover:text-neutral-600
-                focus:bg-neutral-200 focus:text-neutral-600
-                dark:hover:bg-neutral-900
-                dark:focus:bg-neutral-900
-              "
+              type="button"
+              className="rounded-sm p-1 text-neutral-400 transition-colors hover:bg-neutral-200 hover:text-neutral-600 focus:bg-neutral-200 focus:text-neutral-600 dark:focus:bg-neutral-900 dark:hover:bg-neutral-900"
               onClick={(e) => {
                 e.stopPropagation()
                 expandTask(task.id)
@@ -113,13 +101,8 @@ const TaskRow: React.FC<Props> = ({
               <Enlarge size={17} />
             </button>
             <button
-              className="
-                rounded-sm p-1 text-neutral-400 transition-colors
-                hover:bg-neutral-200 hover:text-neutral-600
-                focus:bg-neutral-200 focus:text-neutral-600
-                dark:hover:bg-neutral-900
-                dark:focus:bg-neutral-900
-              "
+              type="button"
+              className="rounded-sm p-1 text-neutral-400 transition-colors hover:bg-neutral-200 hover:text-neutral-600 focus:bg-neutral-200 focus:text-neutral-600 dark:focus:bg-neutral-900 dark:hover:bg-neutral-900"
               onClick={(e) => {
                 e.stopPropagation()
                 editTask(task.id)
@@ -128,13 +111,8 @@ const TaskRow: React.FC<Props> = ({
               <Pencil size={17} />
             </button>
             <button
-              className="
-                rounded-sm p-1 text-red-400 transition-colors
-                hover:bg-red-100 hover:text-red-500
-                focus:bg-red-100 focus:text-red-500
-                dark:hover:bg-neutral-900
-                dark:focus:bg-red-600/20
-              "
+              type="button"
+              className="rounded-sm p-1 text-red-400 transition-colors hover:bg-red-100 hover:text-red-500 focus:bg-red-100 focus:text-red-500 dark:focus:bg-red-600/20 dark:hover:bg-neutral-900"
               onClick={(e) => {
                 e.stopPropagation()
                 deleteTask(task.id)

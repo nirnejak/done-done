@@ -33,7 +33,7 @@ export async function POST(request: Request) {
       token,
       user: { id, name, email },
     })
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // biome-ignore lint/suspicious/noExplicitAny: error type is unknown at catch boundary
   } catch (error: any) {
     if (
       typeof error.message === "string" &&

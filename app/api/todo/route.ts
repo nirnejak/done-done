@@ -1,13 +1,13 @@
-import { NextRequest, NextResponse } from "next/server"
+import { and, eq } from "drizzle-orm"
 
 import jwt from "jsonwebtoken"
-import { and, eq } from "drizzle-orm"
+import { type NextRequest, NextResponse } from "next/server"
 
 import { db } from "@/db"
 
 import { todos } from "@/db/schema"
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// biome-ignore lint/suspicious/noExplicitAny: error type is unknown at catch boundary
 const errorHandler = (error: any, defaultMessage: string) => {
   if (
     error instanceof jwt.JsonWebTokenError ||
@@ -25,6 +25,7 @@ export async function GET(request: NextRequest) {
   const token = rawToken.replace("Bearer ", "")
 
   try {
+    // biome-ignore lint/style/noNonNullAssertion: env var validated at startup
     const decoded = jwt.verify(token, process.env.SECRET_KEY!) as { id: number }
     const userId = decoded.id
 
@@ -53,6 +54,7 @@ export async function POST(request: NextRequest) {
   const token = rawToken.replace("Bearer ", "")
 
   try {
+    // biome-ignore lint/style/noNonNullAssertion: env var validated at startup
     const decoded = jwt.verify(token, process.env.SECRET_KEY!) as { id: number }
     const userId = decoded.id
 
@@ -61,7 +63,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Title is required" }, { status: 400 })
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // biome-ignore lint/suspicious/noExplicitAny: dynamic fields require flexible typing
     let fields: Record<string, any> = { title, userId, description }
     if (dueDate) {
       fields = { ...fields, dueDate }
@@ -69,7 +71,7 @@ export async function POST(request: NextRequest) {
 
     const newTodo = await db
       .insert(todos)
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // biome-ignore lint/suspicious/noExplicitAny: dynamic fields require flexible typing
       .values(fields as any)
       .returning()
     return NextResponse.json({
@@ -90,6 +92,7 @@ export async function DELETE(request: NextRequest) {
   const token = rawToken.replace("Bearer ", "")
 
   try {
+    // biome-ignore lint/style/noNonNullAssertion: env var validated at startup
     const decoded = jwt.verify(token, process.env.SECRET_KEY!) as { id: number }
     const userId = decoded.id
 
@@ -114,6 +117,7 @@ export async function PUT(request: NextRequest) {
   const token = rawToken.replace("Bearer ", "")
 
   try {
+    // biome-ignore lint/style/noNonNullAssertion: env var validated at startup
     const decoded = jwt.verify(token, process.env.SECRET_KEY!) as { id: number }
     const userId = decoded.id
 
@@ -123,7 +127,7 @@ export async function PUT(request: NextRequest) {
       return NextResponse.json({ error: "ID is required" }, { status: 400 })
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // biome-ignore lint/suspicious/noExplicitAny: dynamic fields require flexible typing
     let fields: Record<string, any> = { title, description, isCompleted }
     if (dueDate) {
       fields = { ...fields, dueDate }

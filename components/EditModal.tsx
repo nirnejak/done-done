@@ -1,11 +1,8 @@
 "use client"
 import * as React from "react"
-
-import classNames from "@/utils/classNames"
-
 import Modal from "@/components/atoms/Modal"
-
-import { useTasks, type TASK } from "@/context/TasksContext"
+import { type TASK, useTasks } from "@/context/TasksContext"
+import classNames from "@/utils/classNames"
 
 interface Props {
   task: TASK
@@ -46,8 +43,8 @@ const EditModal: React.FC<Props> = ({ task, closeModal }) => {
           }}
           className={classNames(
             "rounded-lg border px-3 py-2 text-sm outline-hidden",
-            "bg-neutral-100 focus:border-neutral-300 text-neutral-600 placeholder:text-neutral-400",
-            "dark:bg-neutral-800 dark:focus:border-neutral-700 dark:text-neutral-300 placeholder:text-neutral-500 dark:border-neutral-700"
+            "bg-neutral-100 text-neutral-600 placeholder:text-neutral-400 focus:border-neutral-300",
+            "placeholder:text-neutral-500 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-300 dark:focus:border-neutral-700"
           )}
           ref={ref}
           required
@@ -60,8 +57,8 @@ const EditModal: React.FC<Props> = ({ task, closeModal }) => {
           }}
           className={classNames(
             "rounded-lg border px-3 py-2 text-sm outline-hidden",
-            "bg-neutral-100 focus:border-neutral-300 text-neutral-600 placeholder:text-neutral-400",
-            "dark:bg-neutral-800 dark:focus:border-neutral-700 dark:text-neutral-300 placeholder:text-neutral-500 dark:border-neutral-700"
+            "bg-neutral-100 text-neutral-600 placeholder:text-neutral-400 focus:border-neutral-300",
+            "placeholder:text-neutral-500 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-300 dark:focus:border-neutral-700"
           )}
           rows={3}
         />
@@ -70,8 +67,8 @@ const EditModal: React.FC<Props> = ({ task, closeModal }) => {
           className={classNames(
             "flex justify-between",
             "rounded-lg border px-3 py-2 text-sm outline-hidden",
-            "bg-neutral-100 focus:border-neutral-300 text-neutral-600",
-            "dark:bg-neutral-800 dark:focus:border-neutral-700 dark:text-neutral-300 dark:border-neutral-700"
+            "bg-neutral-100 text-neutral-600 focus:border-neutral-300",
+            "dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-300 dark:focus:border-neutral-700"
           )}
         >
           <span className="mr-1 font-medium">Due Date</span>
@@ -89,31 +86,13 @@ const EditModal: React.FC<Props> = ({ task, closeModal }) => {
           <button
             type="button"
             onClick={closeModal}
-            className="
-              flex-1 rounded-lg bg-neutral-300 px-5 py-2 text-sm
-              text-neutral-800 transition-all
-              hover:bg-neutral-400
-              focus:bg-neutral-400 focus:outline-hidden
-              active:scale-95
-              dark:bg-neutral-700 dark:text-neutral-300
-              dark:hover:bg-neutral-600
-              dark:focus:bg-neutral-600
-            "
+            className="flex-1 rounded-lg bg-neutral-300 px-5 py-2 text-neutral-800 text-sm transition-all hover:bg-neutral-400 focus:bg-neutral-400 focus:outline-hidden active:scale-95 dark:bg-neutral-700 dark:text-neutral-300 dark:focus:bg-neutral-600 dark:hover:bg-neutral-600"
           >
             Cancel
           </button>
           <button
             type="submit"
-            className="
-              flex-1 rounded-lg bg-neutral-800 px-5 py-2 text-sm text-neutral-50
-              transition-all
-              hover:bg-neutral-900
-              focus:bg-neutral-900 focus:outline-hidden
-              active:scale-95
-              dark:bg-neutral-300 dark:text-neutral-900
-              dark:hover:bg-neutral-200
-              dark:focus:bg-neutral-200
-            "
+            className="flex-1 rounded-lg bg-neutral-800 px-5 py-2 text-neutral-50 text-sm transition-all hover:bg-neutral-900 focus:bg-neutral-900 focus:outline-hidden active:scale-95 dark:bg-neutral-300 dark:text-neutral-900 dark:focus:bg-neutral-200 dark:hover:bg-neutral-200"
           >
             Update Task
           </button>

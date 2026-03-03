@@ -1,10 +1,9 @@
 "use client"
 
-import * as React from "react"
 import { DesktopDevice, Moon, Sun } from "akar-icons"
-
-import classNames from "@/utils/classNames"
+import * as React from "react"
 import useTheme from "@/hooks/useTheme"
+import classNames from "@/utils/classNames"
 
 const ThemeToggle: React.FC = () => {
   const { theme, setTheme } = useTheme()
@@ -36,22 +35,12 @@ const ThemeToggle: React.FC = () => {
   }, [theme])
 
   return (
-    <div
-      className="
-        fixed top-5 right-5 rounded-full bg-neutral-200 p-2 font-medium
-        shadow-heavy
-        dark:bg-neutral-800 dark:shadow-md
-      "
-    >
-      <div
-        className="
-          flex rounded-full bg-neutral-50 p-1 shadow-heavy
-          dark:bg-neutral-900 dark:shadow-md
-        "
-      >
+    <div className="fixed top-5 right-5 rounded-full bg-neutral-200 p-2 font-medium shadow-heavy dark:bg-neutral-800 dark:shadow-md">
+      <div className="flex rounded-full bg-neutral-50 p-1 shadow-heavy dark:bg-neutral-900 dark:shadow-md">
         <button
+          type="button"
           className={classNames(
-            "dark:hover:bg-neutral-800 hover:bg-neutral-200 px-2 py-2 rounded-full",
+            "rounded-full px-2 py-2 hover:bg-neutral-200 dark:hover:bg-neutral-800",
             theme === "system"
               ? "text-neutral-900 dark:text-neutral-200"
               : "text-neutral-400 dark:text-neutral-500"
@@ -63,8 +52,9 @@ const ThemeToggle: React.FC = () => {
           <DesktopDevice size={19} />
         </button>
         <button
+          type="button"
           className={classNames(
-            "dark:hover:bg-neutral-800 hover:bg-neutral-200 px-2 py-2 rounded-full",
+            "rounded-full px-2 py-2 hover:bg-neutral-200 dark:hover:bg-neutral-800",
             theme === "light"
               ? "text-neutral-900 dark:text-neutral-200"
               : "text-neutral-400 dark:text-neutral-500"
@@ -76,8 +66,9 @@ const ThemeToggle: React.FC = () => {
           <Sun size={19} />
         </button>
         <button
+          type="button"
           className={classNames(
-            "dark:hover:bg-neutral-800 hover:bg-neutral-200 px-2 py-2 rounded-full",
+            "rounded-full px-2 py-2 hover:bg-neutral-200 dark:hover:bg-neutral-800",
             theme === "dark"
               ? "text-neutral-900 dark:text-neutral-200"
               : "text-neutral-400 dark:text-neutral-500"

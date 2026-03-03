@@ -1,17 +1,14 @@
 "use client"
-import * as React from "react"
-
-import { AnimatePresence, motion, Reorder } from "motion/react"
 import { ArrowClockwise, Leaf, Sort } from "akar-icons"
 
-import { useTasks, type TASK } from "@/context/TasksContext"
-
-import useModal from "@/hooks/useModal"
-
-import TaskRow from "@/components/TaskRow"
-import ExpandModal from "@/components/ExpandModal"
-import EditModal from "@/components/EditModal"
+import { AnimatePresence, motion, Reorder } from "motion/react"
+import * as React from "react"
 import DeleteModal from "@/components/DeleteModal"
+import EditModal from "@/components/EditModal"
+import ExpandModal from "@/components/ExpandModal"
+import TaskRow from "@/components/TaskRow"
+import { type TASK, useTasks } from "@/context/TasksContext"
+import useModal from "@/hooks/useModal"
 
 const TaskList: React.FC = () => {
   const {
@@ -47,24 +44,14 @@ const TaskList: React.FC = () => {
     <div>
       <motion.div
         layout
-        className="
-          rounded-3xl bg-neutral-200 p-2 shadow-heavy
-          dark:bg-neutral-800 dark:shadow-md
-        "
+        className="rounded-3xl bg-neutral-200 p-2 shadow-heavy dark:bg-neutral-800 dark:shadow-md"
       >
         <motion.div
           layout
-          className="
-            rounded-2xl bg-neutral-50 px-4 pt-4 pb-2 shadow-heavy
-            dark:bg-neutral-900 dark:shadow-md
-          "
+          className="rounded-2xl bg-neutral-50 px-4 pt-4 pb-2 shadow-heavy dark:bg-neutral-900 dark:shadow-md"
         >
           {isFetching && (
-            <div
-              className="
-                my-10 flex flex-col items-center gap-3 text-neutral-500
-              "
-            >
+            <div className="my-10 flex flex-col items-center gap-3 text-neutral-500">
               <div className="animate-spin">
                 <ArrowClockwise />
               </div>
@@ -72,11 +59,7 @@ const TaskList: React.FC = () => {
             </div>
           )}
           {tasks.length === 0 && isFetching === false && (
-            <div
-              className="
-                my-10 flex flex-col items-center gap-3 text-neutral-500
-              "
-            >
+            <div className="my-10 flex flex-col items-center gap-3 text-neutral-500">
               <div>
                 <Leaf />
               </div>
@@ -87,15 +70,10 @@ const TaskList: React.FC = () => {
           )}
           {tasks.length > 0 && (
             <div className="mb-2 flex items-center text-neutral-500">
-              <p className="text-xs font-medium">Tasks</p>
+              <p className="font-medium text-xs">Tasks</p>
               <button
-                className="
-                  -mr-1 ml-auto rounded-sm p-1 outline-hidden
-                  hover:bg-neutral-200/50
-                  focus:bg-neutral-200/50
-                  dark:hover:bg-neutral-200/10
-                  dark:focus:bg-neutral-200/10
-                "
+                type="button"
+                className="-mr-1 ml-auto rounded-sm p-1 outline-hidden hover:bg-neutral-200/50 focus:bg-neutral-200/50 dark:focus:bg-neutral-200/10 dark:hover:bg-neutral-200/10"
                 onKeyDown={(e) => {
                   if (e.key === "Enter") sortTasksAlphabetically()
                 }}
@@ -108,7 +86,7 @@ const TaskList: React.FC = () => {
             </div>
           )}
 
-          <div className="flex w-full flex-col select-none">
+          <div className="flex w-full select-none flex-col">
             <Reorder.Group axis="y" values={tasks} onReorder={reorderTasks}>
               {tasks.map((task) => (
                 <TaskRow

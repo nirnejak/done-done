@@ -1,11 +1,11 @@
 import {
-  pgTable,
-  serial,
-  varchar,
-  text,
+  boolean,
   date,
   integer,
-  boolean,
+  pgTable,
+  serial,
+  text,
+  varchar,
 } from "drizzle-orm/pg-core"
 
 export const users = pgTable("users", (u) => ({

@@ -1,8 +1,6 @@
-import * as React from "react"
-
-import { generateMetadata } from "@/utils/metadata"
-
+import type * as React from "react"
 import Tasks from "@/components/Tasks"
+import { generateMetadata } from "@/utils/metadata"
 
 export const metadata = generateMetadata({
   path: "/tasks",

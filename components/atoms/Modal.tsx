@@ -1,7 +1,7 @@
 "use client"
-import * as React from "react"
 
 import { motion } from "motion/react"
+import type * as React from "react"
 
 import { BASE_TRANSITION } from "@/utils/animation"
 
@@ -29,9 +29,7 @@ const Modal: React.FC<Props> = ({ title, children, closeModal }) => {
           e.stopPropagation()
           closeModal()
         }}
-        className="
-          fixed top-0 left-0 z-40 h-screen w-screen bg-black/10 backdrop-blur-xs
-        "
+        className="fixed top-0 left-0 z-40 h-screen w-screen bg-black/10 backdrop-blur-xs"
       />
       <motion.div
         initial={{
@@ -53,24 +51,10 @@ const Modal: React.FC<Props> = ({ title, children, closeModal }) => {
           scale: 0.95,
         }}
         transition={BASE_TRANSITION}
-        className="
-          fixed top-1/2 left-1/2 z-50 w-125 origin-center rounded-3xl
-          bg-neutral-200 p-2 shadow-heavy
-          dark:bg-neutral-800 dark:shadow-md
-        "
+        className="fixed top-1/2 left-1/2 z-50 w-125 origin-center rounded-3xl bg-neutral-200 p-2 shadow-heavy dark:bg-neutral-800 dark:shadow-md"
       >
-        <div
-          className="
-            rounded-2xl bg-neutral-50 p-5 shadow-heavy
-            dark:bg-neutral-900 dark:shadow-md
-          "
-        >
-          <p
-            className="
-              mb-6 text-lg font-semibold text-neutral-800
-              dark:text-neutral-200
-            "
-          >
+        <div className="rounded-2xl bg-neutral-50 p-5 shadow-heavy dark:bg-neutral-900 dark:shadow-md">
+          <p className="mb-6 font-semibold text-lg text-neutral-800 dark:text-neutral-200">
             {title}
           </p>
           {children}

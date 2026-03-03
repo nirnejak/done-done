@@ -1,6 +1,5 @@
-import { expect, test } from "vitest"
-
 import { fireEvent, render, screen } from "@testing-library/react"
+import { expect, test } from "vitest"
 
 import HomePage from "@/app/page"
 import AuthProvider from "@/context/AuthContext"

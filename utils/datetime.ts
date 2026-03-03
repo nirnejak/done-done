@@ -1,9 +1,9 @@
 import {
+  differenceInHours,
+  endOfDay,
   format,
   formatDistance,
   startOfDay,
-  differenceInHours,
-  endOfDay,
 } from "date-fns"
 
 export const formatToDate = (date: Date): string => {

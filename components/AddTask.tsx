@@ -1,16 +1,14 @@
 "use client"
-import * as React from "react"
 
-import { Plus, ArrowClockwise } from "akar-icons"
+import { ArrowClockwise, Plus } from "akar-icons"
 import { AnimatePresence, motion } from "motion/react"
-
-import classNames from "@/utils/classNames"
-import { BASE_TRANSITION } from "@/utils/animation"
-
-import useDynamicHeight from "@/hooks/useDynamicHeight"
+import * as React from "react"
+import { useTasks } from "@/context/TasksContext"
 import useClickOutside from "@/hooks/useClickOutside"
 
-import { useTasks } from "@/context/TasksContext"
+import useDynamicHeight from "@/hooks/useDynamicHeight"
+import { BASE_TRANSITION } from "@/utils/animation"
+import classNames from "@/utils/classNames"
 
 const AddTask: React.FC = () => {
   const { isAdding, addTask } = useTasks()
@@ -50,19 +48,14 @@ const AddTask: React.FC = () => {
         animate={{ height: height + 16 }} // added 16px for the padding
         onSubmit={handleFormSubmit}
         onClick={() => setIsFocused(true)}
-        className="
-          group relative mb-8 flex flex-col items-center rounded-3xl
-          bg-neutral-200 p-2 shadow-heavy
-          md:mb-12
-          dark:bg-neutral-800 dark:shadow-md
-        "
+        className="group relative mb-8 flex flex-col items-center rounded-3xl bg-neutral-200 p-2 shadow-heavy md:mb-12 dark:bg-neutral-800 dark:shadow-md"
       >
         <div ref={ref} className="w-full">
           <input
             type="text"
             value={title}
             className={classNames(
-              "relative w-full rounded-2xl py-2.5 px-3 text-sm shadow-heavy focus:outline-hidden dark:shadow-md",
+              "relative w-full rounded-2xl px-3 py-2.5 text-sm shadow-heavy focus:outline-hidden dark:shadow-md",
               "bg-neutral-50 text-neutral-700 placeholder:text-neutral-500",
               "dark:bg-neutral-900 dark:text-neutral-300 dark:placeholder:text-neutral-400"
             )}
@@ -81,7 +74,7 @@ const AddTask: React.FC = () => {
                 exit={{ opacity: 0, y: -5 }}
                 value={description}
                 className={classNames(
-                  "relative w-full flex mt-2 rounded-2xl py-2.5 px-3 text-sm shadow-heavy focus:outline-hidden dark:shadow-md",
+                  "relative mt-2 flex w-full rounded-2xl px-3 py-2.5 text-sm shadow-heavy focus:outline-hidden dark:shadow-md",
                   "bg-neutral-50 text-neutral-700 placeholder:text-neutral-500",
                   "dark:bg-neutral-900 dark:text-neutral-300 dark:placeholder:text-neutral-400"
                 )}
@@ -93,20 +86,13 @@ const AddTask: React.FC = () => {
               />
             )}
           </AnimatePresence>
-          <div
-            className="
-              absolute right-3.5 bottom-3.5 z-5 flex items-center gap-1.5
-            "
-          >
+          <div className="absolute right-3.5 bottom-3.5 z-5 flex items-center gap-1.5">
             {isFocused && (
               <motion.div
                 transition={BASE_TRANSITION}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="
-                  rounded-xl bg-neutral-200 py-1.5 pr-2.5 pl-3 text-xs
-                  dark:bg-neutral-800 dark:text-neutral-200
-                "
+                className="rounded-xl bg-neutral-200 py-1.5 pr-2.5 pl-3 text-xs dark:bg-neutral-800 dark:text-neutral-200"
               >
                 <span className="mr-1 font-medium">Due:</span>
                 <input
@@ -124,9 +110,9 @@ const AddTask: React.FC = () => {
               disabled={isAdding}
               onClick={(e) => e.stopPropagation()}
               className={classNames(
-                "flex items-center gap-1 rounded-xl pl-3 pr-2.5 py-1.5 text-xs shadow-heavy outline-hidden transition-colors dark:shadow-md disabled:opacity-80",
+                "flex items-center gap-1 rounded-xl py-1.5 pr-2.5 pl-3 text-xs shadow-heavy outline-hidden transition-colors disabled:opacity-80 dark:shadow-md",
                 "bg-neutral-600 text-neutral-100 hover:bg-neutral-700 focus:bg-neutral-700",
-                "dark:bg-neutral-300 dark:text-neutral-900 dark:hover:bg-neutral-200 dark:focus:bg-neutral-200"
+                "dark:bg-neutral-300 dark:text-neutral-900 dark:focus:bg-neutral-200 dark:hover:bg-neutral-200"
               )}
             >
               {isAdding ? (
