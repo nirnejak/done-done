@@ -37,7 +37,6 @@
         "husky": "^9.1.7",
         "jsdom": "^28.1.0",
         "lint-staged": "^16.3.1",
-        "postcss": "^8.5.8",
         "tailwindcss": "^4.2.1",
         "typescript": "^5.9.3",
         "vite-tsconfig-paths": "^6.1.1",
